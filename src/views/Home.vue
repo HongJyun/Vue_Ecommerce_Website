@@ -11,12 +11,6 @@ import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
-  created(){
-    const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/products`
-    this.$http.get(api).then(res=>{
-      console.log(res.data)
-    })
-  },
   components: {
     HelloWorld
   }

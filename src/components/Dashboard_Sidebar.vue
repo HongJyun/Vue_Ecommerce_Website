@@ -3,7 +3,7 @@
     <div class="sidebar-sticky">
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link active" href="#">
+          <router-link to='/admin' class="nav-link active" >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -21,7 +21,7 @@
             </svg>
             Dashboard
             <span class="sr-only">(current)</span>
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
@@ -44,7 +44,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">
+          <router-link to="/admin/products" class="nav-link">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -62,7 +62,7 @@
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
             </svg>
             Products
-          </a>
+          </router-link>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">
@@ -254,8 +254,5 @@
 <script>
 export default {
   name: "Dashboard_Sidebar",
-  props: {
-    msg: String
-  }
 };
 </script>

@@ -36,10 +36,7 @@
               <router-link class="nav-link" to="/">首頁</router-link>
               <span class="sr-only">首頁</span>
             </li>
-            <li class="nav-item active">
-              <router-link class="nav-link" to="/about">About</router-link>
-              <span class="sr-only">首頁</span>
-            </li>
+            <li class="nav-item active"></li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -58,7 +55,8 @@
               </div>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link" to="/login">登入</router-link>
+              <router-link class="nav-link" to="/admin">後臺管理</router-link>
+              <span class="sr-only">後臺管理</span>
             </li>
           </ul>
         </div>
@@ -67,7 +65,7 @@
         </a>
       </nav>
     </header>
-    
+
     <router-view />
   </div>
 </template>

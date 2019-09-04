@@ -1,11 +1,11 @@
 <template>
   <div class="dashboard">
     <Navbar />
-    <div class="container-fluid">
+    <div class="container-fluid mt-6 mt-md-0">
       <div class="row">
         <Sidebar />
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-          <Products />
+          <router-view />
         </main>
       </div>
     </div>
@@ -24,6 +24,6 @@ export default {
     Navbar,
     Sidebar,
     Products
-  }
+  },
 };
 </script>

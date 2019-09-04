@@ -1,6 +1,7 @@
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import 'bootstrap'
 
 import router from "./router";
 import App from "./App.vue";
@@ -26,7 +27,6 @@ router.beforeEach((to, from, next) => {
         next({ path: "/login" });
       }
     });
-    console.log("haha");
   } else {
     next();
   }

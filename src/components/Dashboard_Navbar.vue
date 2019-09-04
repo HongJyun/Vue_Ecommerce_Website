@@ -18,9 +18,6 @@
 <script>
 export default {
   name: "Dashboard_Navbar",
-  props: {
-    msg: String
-  },
   methods: {
     signout() {
       const api = `${process.env.VUE_APP_API}/logout`;

@@ -1,0 +1,44 @@
+.cart {
+  .cart-row {
+    @include media-breakpoint-up(md) {
+      border-bottom: 1px solid theme-color("light");
+    }
+  }
+
+  .cart-img {
+    min-height: 110px;
+    min-width: 110px;
+    background-position: center center;
+    background-size: cover;
+
+    &.cart-image-sm {
+      @include media-breakpoint-down(sm) {
+        height: 80px;
+      }
+    }
+  }
+
+  .cart-quantity {
+    width: 145px;
+
+    .form-control {
+      height: calc(3rem);
+      text-align: center;
+    }
+
+    .btn {
+      border: 1px solid #ced4da;
+
+      &:hover {
+        background: theme-color("light");
+      }
+    }
+  }
+
+  .cart-price {
+    @include media-breakpoint-down(sm) {
+      border-top: 1px solid theme-color("light");
+      border-bottom: 1px solid theme-color("light");
+    }
+  }
+}

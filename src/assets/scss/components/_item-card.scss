@@ -1,0 +1,43 @@
+.card {
+    display: flex;
+    flex-direction: column;
+
+    .item-img {
+        height: 315px;
+        background-size: cover;
+        background-position: center center;
+        position: relative;
+    }
+
+    .item-tag {
+        position: absolute;
+        left: 20px;
+        top: 0;
+        background-color: $primary;
+        writing-mode: vertical-lr;
+        padding: 15px 10px;
+        color: white;
+        letter-spacing: 5px;
+    }
+
+    .item-info {
+        border: 1px solid $primary-200
+    }
+
+    .item-title,
+    .item-price {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        font-size: $font-size-lg;
+    }
+
+    .item-title {
+        border-right: 1px solid $primary-200;
+    }
+
+    .item-stared-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+}

@@ -1,0 +1,20 @@
+.form-square {
+  background: theme-color("light");
+
+  &.form-square-withicon {
+    position: relative;
+    padding-left: 60px;
+  }
+
+  .form-input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+
+  .form-square-icon-left {
+    position: absolute;
+    left: 20px;
+    margin: 0;
+  }
+}

@@ -7,6 +7,7 @@ import "vue-loading-overlay/dist/vue-loading.css";
 
 import router from "./router";
 import App from "./App.vue";
+import './bus'
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
@@ -20,7 +21,6 @@ new Vue({
 }).$mount("#app");
 
 router.beforeEach((to, from, next) => {
-  console.log("to", to, "from", from, "next");
   if (to.meta.requiresAuth) {
     const api = `${process.env.VUE_APP_API}/api/user/check`;
     axios.post(api).then(res => {

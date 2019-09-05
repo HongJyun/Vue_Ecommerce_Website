@@ -212,17 +212,20 @@
         </div>
       </div>
     </div>
+    <Pagination :pages="pagination" @emitPagination="getProduct" />
   </div>
 </template>
 
 <script>
 import $ from "jquery";
+import Pagination from "./Pagination";
 
 export default {
   name: "Dashboard_Products",
   data() {
     return {
       products: [],
+      pagination: {},
       tempProduct: {},
       isNew: false,
       isLoading: false,
@@ -233,13 +236,14 @@ export default {
     };
   },
   methods: {
-    getProduct() {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products`;
+    getProduct(page = 1) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products?page=${page}`;
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then(res => {
         vm.products = res.data.products;
         vm.isLoading = false;
+        vm.pagination = res.data.pagination;
       });
     },
     openModal(isNew, item) {
@@ -277,6 +281,7 @@ export default {
         } else {
           $("#productModal").modal("hide");
           vm.getProduct();
+          this.$bus.$emit("message:push", res.data.message, "danger");
         }
       });
     },
@@ -304,11 +309,18 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.success) {
-            vm.status.fileUploading = false;
             vm.$set(vm.tempProduct, "imageUrl", res.data.imageUrl);
+          } else {
+            this.$bus.$emit("message:push", res.data.message, "danger");
+            const uploadedFileId = this.$refs.files.id;
+            document.getElementById(uploadedFileId).value = "";
           }
+          vm.status.fileUploading = false;
         });
     }
+  },
+  components: {
+    Pagination
   },
   created() {
     this.getProduct();

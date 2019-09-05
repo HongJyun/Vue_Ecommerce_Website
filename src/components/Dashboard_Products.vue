@@ -55,20 +55,28 @@
               <div class="col-sm-4">
                 <div class="form-group">
                   <label for="image">輸入圖片網址</label>
-                  <input type="text" class="form-control" id="image" placeholder="請輸入圖片連結" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="image"
+                    placeholder="請輸入圖片連結"
+                    v-model="tempProduct.imageUrl"
+                  />
                 </div>
                 <div class="form-group">
                   <label for="customFile">
                     或 上傳圖片
                     <i class="fas fa-spinner fa-spin"></i>
                   </label>
-                  <input type="file" id="customFile" class="form-control" ref="files" />
+                  <input
+                    @change="uploadFile"
+                    type="file"
+                    id="customFile"
+                    class="form-control"
+                    ref="files"
+                  />
                 </div>
-                <img
-                  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
-                  class="img-fluid"
-                  alt
-                />
+                <img class="img-fluid" :src="tempProduct.imageUrl" alt />
               </div>
               <div class="col-sm-8">
                 <div class="form-group">
@@ -226,6 +234,9 @@ export default {
     },
     openModal(isNew, item) {
       $("#productModal").modal("show");
+      const uploadedFileId = this.$refs.files.id;
+      document.getElementById(uploadedFileId).value = "";
+
       if (isNew) {
         this.tempProduct = {};
         this.isNew = true;
@@ -266,6 +277,25 @@ export default {
         $("#delProductModal").modal("hide");
         vm.getProduct();
       });
+    },
+    uploadFile() {
+      const uploadedFile = this.$refs.files.files[0];
+      const vm = this;
+      const formData = new FormData();
+      formData.append("file-to-upload", uploadedFile);
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/upload`;
+      this.$http
+        .post(api, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(res => {
+          console.log(res);
+          if (res.data.success) {
+            vm.$set(vm.tempProduct, "imageUrl", res.data.imageUrl);
+          }
+        });
     }
   },
   created() {

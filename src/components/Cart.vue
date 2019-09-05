@@ -4,7 +4,7 @@
       <div class="col-md-8 pr-md-2">
         <h4 class="bg-light py-3 font-weight-bold text-center mb-5">您的購物車</h4>
         <div class="cart">
-          <div class="cart-row d-md-flex pb-md-4 mb-4">
+          <div class="cart-row d-md-flex pb-md-4 mb-4" v-for="item in carts" :key="item.id">
             <div
               class="d-flex flex-md-row align-items-md-center justify-content-between flex-fill px-5 px-md-0 text-nowrap"
             >
@@ -16,16 +16,21 @@
               </div>
               <div class="d-flex flex-column flex-md-row justify-content-around flex-fill ml-3">
                 <div class="cart-item mb-2 mx-md-5 mb-md-0">
-                  <span class="cart-item-title h5">焦糖馬卡龍</span>
+                  <span class="cart-item-title h5">{{ item.product.title | currency }}</span>
                   <br />
-                  <span class="cart-item-price">NT$ 450</span>
+                  <span class="cart-item-price">{{ item.product.price | currency }}</span>
                 </div>
                 <div class="cart-quantity">
                   <div class="input-group carts-input-group">
                     <div class="input-group-prepend">
                       <button type="button" class="btn text-primary material-icons">remove</button>
                     </div>
-                    <input type="text" class="form-control" value="2" maxlength="2" />
+                    <input
+                      type="text"
+                      class="form-control"
+                      :value="item.product.num"
+                      maxlength="2"
+                    />
                     <div class="input-group-append">
                       <button type="button" class="btn text-primary material-icons">add</button>
                     </div>
@@ -36,7 +41,7 @@
             <div class="flex-fill align-items-center d-flex justify-content-between">
               <div
                 class="cart-price justify-content-end flex-fill mx-5 mt-2 mt-md-0 mb-0 py-3 h5 font-weight-bold text-nowrap text-md-center text-right"
-              >NT$ 900</div>
+              >{{ item.total | currency }}</div>
               <button
                 type="button"
                 class="btn text-primary material-icons d-none d-md-block"
@@ -55,15 +60,15 @@
           <div class="text-white text-md-down-primary">
             <div class="d-flex justify-content-between">
               <span>小計</span>
-              <span>NT$ 2,700</span>
+              <span v-if="carts">{{ total | currency }}</span>
             </div>
             <div class="d-flex justify-content-between">
-              <span>運費</span>
-              <span>NT$ 300</span>
+              <span>折扣</span>
+              <span></span>
             </div>
             <div class="d-flex justify-content-between h5 font-weight-bold mt-3">
               <span>總計</span>
-              <span>NT$ 300</span>
+              <span v-if="carts">{{ finalTotal | currency }}</span>
             </div>
           </div>
         </div>
@@ -81,12 +86,18 @@ export default {
   name: "cart",
   data() {
     return {
-      carts: []
+      carts: [],
+      total: "",
+      finalTotal: ""
     };
   },
-  computed(){
-    
-  },
+  // computed: {
+  //   prepostOrder() {
+
+  //     let order = this.carts.map(item=>item.product)
+  //     return order;
+  //   }
+  // },
   methods: {
     getCart() {
       this.$emit("emitGetCart");
@@ -97,6 +108,8 @@ export default {
         console.log("nav", res.data);
         vm.isLoading = false;
         vm.carts = res.data.data.carts;
+        vm.total = res.data.data.total;
+        vm.finalTotal = res.data.data.final_total;
       });
     }
   },

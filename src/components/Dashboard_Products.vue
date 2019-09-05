@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="vld-parent">
+      <loading :active.sync="isLoading"></loading>
+    </div>
     <div class="text-right">
       <button class="btn btn-outline-primary mb-2" @click="openModal(true)">建立新產品</button>
     </div>
@@ -66,7 +69,7 @@
                 <div class="form-group">
                   <label for="customFile">
                     或 上傳圖片
-                    <i class="fas fa-spinner fa-spin"></i>
+                    <i class="fas fa-spinner fa-spin" v-if="status.fileUploading"></i>
                   </label>
                   <input
                     @change="uploadFile"
@@ -221,15 +224,22 @@ export default {
     return {
       products: [],
       tempProduct: {},
-      isNew: false
+      isNew: false,
+      isLoading: false,
+      fullPage: true,
+      status: {
+        fileUploading: false
+      }
     };
   },
   methods: {
     getProduct() {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products`;
       const vm = this;
+      vm.isLoading = true;
       this.$http.get(api).then(res => {
         vm.products = res.data.products;
+        vm.isLoading = false;
       });
     },
     openModal(isNew, item) {
@@ -284,6 +294,7 @@ export default {
       const formData = new FormData();
       formData.append("file-to-upload", uploadedFile);
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/upload`;
+      vm.status.fileUploading = true;
       this.$http
         .post(api, formData, {
           headers: {
@@ -293,6 +304,7 @@ export default {
         .then(res => {
           console.log(res);
           if (res.data.success) {
+            vm.status.fileUploading = false;
             vm.$set(vm.tempProduct, "imageUrl", res.data.imageUrl);
           }
         });

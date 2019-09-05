@@ -43,84 +43,6 @@
               >delete_outline</button>
             </div>
           </div>
-          <div class="cart-row d-md-flex pb-md-4 mb-4">
-            <div
-              class="d-flex flex-md-row align-items-md-center justify-content-between flex-fill px-5 px-md-0 text-nowrap"
-            >
-              <div>
-                <div
-                  class="cart-img cart-img-sm"
-                  style="background-image: url(https://images.unsplash.com/photo-1497052254059-f3e0bf1a5133?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ce7267675921fc7e41b5610f49750a40&auto=format&fit=crop&w=685&q=80)"
-                ></div>
-              </div>
-              <div class="d-flex flex-column flex-md-row justify-content-around flex-fill ml-3">
-                <div class="cart-item mb-2 mx-md-5 mb-md-0">
-                  <span class="cart-item-title h5">焦糖馬卡龍</span>
-                  <br />
-                  <span class="cart-item-price">NT$ 450</span>
-                </div>
-                <div class="cart-quantity">
-                  <div class="input-group carts-input-group">
-                    <div class="input-group-prepend">
-                      <button type="button" class="btn text-primary material-icons">remove</button>
-                    </div>
-                    <input type="text" class="form-control" value="2" maxlength="2" />
-                    <div class="input-group-append">
-                      <button type="button" class="btn text-primary material-icons">add</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex-fill align-items-center d-flex justify-content-between">
-              <div
-                class="cart-price justify-content-end flex-fill mx-5 mt-2 mt-md-0 mb-0 py-3 h5 font-weight-bold text-nowrap text-md-center text-right"
-              >NT$ 900</div>
-              <button
-                type="button"
-                class="btn text-primary material-icons d-none d-md-block"
-              >delete_outline</button>
-            </div>
-          </div>
-          <div class="cart-row d-md-flex pb-md-4 mb-4">
-            <div
-              class="d-flex flex-md-row align-items-md-center justify-content-between flex-fill px-5 px-md-0 text-nowrap"
-            >
-              <div>
-                <div
-                  class="cart-img cart-img-sm"
-                  style="background-image: url(https://images.unsplash.com/photo-1497052254059-f3e0bf1a5133?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ce7267675921fc7e41b5610f49750a40&auto=format&fit=crop&w=685&q=80)"
-                ></div>
-              </div>
-              <div class="d-flex flex-column flex-md-row justify-content-around flex-fill ml-3">
-                <div class="cart-item mb-2 mx-md-5 mb-md-0">
-                  <span class="cart-item-title h5">焦糖馬卡龍</span>
-                  <br />
-                  <span class="cart-item-price">NT$ 450</span>
-                </div>
-                <div class="cart-quantity">
-                  <div class="input-group carts-input-group">
-                    <div class="input-group-prepend">
-                      <button type="button" class="btn text-primary material-icons">remove</button>
-                    </div>
-                    <input type="text" class="form-control" value="2" maxlength="2" />
-                    <div class="input-group-append">
-                      <button type="button" class="btn text-primary material-icons">add</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex-fill align-items-center d-flex justify-content-between">
-              <div
-                class="cart-price justify-content-end flex-fill mx-5 mt-2 mt-md-0 mb-0 py-3 h5 font-weight-bold text-nowrap text-md-center text-right"
-              >NT$ 900</div>
-              <button
-                type="button"
-                class="btn text-primary material-icons d-none d-md-block"
-              >delete_outline</button>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -156,6 +78,30 @@
 
 <script>
 export default {
-  name: "cart"
+  name: "cart",
+  data() {
+    return {
+      carts: []
+    };
+  },
+  computed(){
+    
+  },
+  methods: {
+    getCart() {
+      this.$emit("emitGetCart");
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+      const vm = this;
+      vm.isLoading = true;
+      this.$http.get(api).then(res => {
+        console.log("nav", res.data);
+        vm.isLoading = false;
+        vm.carts = res.data.data.carts;
+      });
+    }
+  },
+  created() {
+    this.getCart();
+  }
 };
 </script>

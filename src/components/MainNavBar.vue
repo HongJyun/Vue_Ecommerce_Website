@@ -64,6 +64,7 @@
       </div>
       <router-link to="/checkout" class="nav-link d-flex align-items-center" href="#" tabindex="-1">
         <i class="material-icons">shopping_cart</i>
+        <span class="badge badge-secondary">{{ this.cartQty }}</span>
       </router-link>
     </nav>
   </header>
@@ -71,6 +72,27 @@
 
 <script>
 export default {
-  name: "Nav"
+  name: "Nav",
+  data() {
+    return {
+      cartQty: null
+    };
+  },
+  methods: {
+    getCart() {
+      this.$emit("emitGetCart");   
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+      const vm = this;
+      vm.isLoading = true;
+      this.$http.get(api).then(res => {
+        console.log("nav", res.data);
+        vm.isLoading = false;
+        vm.cartQty = res.data.data.carts.length;
+      });
+    }
+  },
+  created() {
+    this.getCart();
+  }
 };
 </script>

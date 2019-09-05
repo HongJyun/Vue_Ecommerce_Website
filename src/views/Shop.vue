@@ -3,6 +3,8 @@
     <div class="vld-parent">
       <loading :active.sync="isLoading"></loading>
     </div>
+    <Alert />
+
     <section class="hero">
       <div class="container">
         <!-- Hero Content-->
@@ -214,7 +216,8 @@
                     </h3>
                   </div>
                   <a
-                    href="#"
+                    @click.prevent="addtoCart(item.id)" @emitGetCart="addtoCart"
+                    href
                     class="btn-lg btn-light btn btn-block text-primary font-weight-bold"
                   >加入購物車</a>
                 </div>
@@ -233,6 +236,7 @@
 <script>
 import $ from "jquery";
 import Pagination from "../components/Pagination";
+import Alert from "../components/AlertMessage";
 
 export default {
   name: "Shop",
@@ -258,19 +262,47 @@ export default {
     },
     getProduct(id) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
-      console.log(api);
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then(res => {
-        console.log(res);
         vm.product = res.data.product;
         vm.isLoading = false;
-        $("#productModal").modal('show');
+        $("#productModal").modal("show");
+      });
+    },
+    addtoCart(id, qty = 1) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+      const vm = this;
+      const cart = {
+        product_id: id,
+        qty
+      };
+
+      vm.isLoading = true;
+      this.$http.post(api, { data: cart }).then(res => {
+        console.log(res);
+        if (res.data.success) {
+          this.$bus.$emit("message:push", res.data.message, "success");
+        } else {
+          this.$bus.$emit("message:push", res.data.message, "danger");
+        }
+        vm.isLoading = false;
+        vm.getCart();
+      });
+    },
+    getCart() {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+      const vm = this;
+      vm.isLoading = true;
+      this.$http.get(api).then(res => {
+        console.log("res", res.data);
+        vm.isLoading = false;
       });
     }
   },
   components: {
-    Pagination
+    Pagination,
+    Alert
   },
   created() {
     this.getProducts();

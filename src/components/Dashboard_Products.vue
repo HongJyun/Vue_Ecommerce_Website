@@ -21,8 +21,8 @@
         <tr v-for="(item) in products" :key="item.id">
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
-          <td class="text-right">{{ item.origin_price }}</td>
-          <td class="text-right">{{ item.price }}</td>
+          <td class="text-right">{{ item.origin_price | currency }}</td>
+          <td class="text-right">{{ item.price | currency }}</td>
           <td>
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else>未啟用</span>
@@ -212,7 +212,7 @@
         </div>
       </div>
     </div>
-    <Pagination :pages="pagination" @emitPagination="getProduct" />
+    <Pagination :pages="pagination" @emitPagination="getProducts" />
   </div>
 </template>
 
@@ -236,7 +236,7 @@ export default {
     };
   },
   methods: {
-    getProduct(page = 1) {
+    getProducts(page = 1) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products?page=${page}`;
       const vm = this;
       vm.isLoading = true;
@@ -277,10 +277,10 @@ export default {
       this.$http[httpMethod](api, { data: vm.tempProduct }).then(res => {
         if (res.data.success) {
           $("#productModal").modal("hide");
-          vm.getProduct();
+          vm.getProducts();
         } else {
           $("#productModal").modal("hide");
-          vm.getProduct();
+          vm.getProducts();
           this.$bus.$emit("message:push", res.data.message, "danger");
         }
       });
@@ -290,7 +290,7 @@ export default {
       let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/product/${vm.tempProduct.id}`;
       this.$http.delete(api, { data: vm.tempProduct }).then(res => {
         $("#delProductModal").modal("hide");
-        vm.getProduct();
+        vm.getProducts();
       });
     },
     uploadFile() {
@@ -323,7 +323,7 @@ export default {
     Pagination
   },
   created() {
-    this.getProduct();
+    this.getProducts();
   }
 };
 </script>

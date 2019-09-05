@@ -70,7 +70,7 @@ $colors: map-merge(
   $colors
 );
 
-$primary:       #3F5D45; //$blue !default;
+$primary:       #262524; //$blue !default;
 $secondary:     $gray-600 !default;
 $success:       $green !default;
 $info:          $cyan !default;
@@ -84,22 +84,22 @@ $theme-colors: () !default;
 $theme-colors: map-merge(
   (
     "primary":    $primary,
-    "accent":     #FFE180,
+    "accent":     #F2B263,
     "secondary":  $secondary,
     "success":    $success,
     "info":       $info,
     "warning":    $warning,
     "danger":     $danger,
-    "light":      #EAF0ED, // $light,
+    "light":      #F2F2F0, // $light,
     "dark":       $dark,
-    "darklight":  #8DA291,
+    "darklight":  #A68072,
   ),
   $theme-colors
 );
 
 // light theme color
-$primary-200: #EAF0ED;
-$primary-500: #8DA291;
+$primary-200: #F2F2F0;
+$primary-500: #A68072;
 
 // Set a specific jump point for requesting color jumps
 $theme-color-interval:      8% !default;
@@ -205,7 +205,7 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1200px
+  xl: 1440px
 ) !default;
 
 @include _assert-ascending($grid-breakpoints, "$grid-breakpoints");

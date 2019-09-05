@@ -22,15 +22,21 @@ import Alert from "../components/AlertMessage";
 
 export default {
   name: "Dashboard",
+  data() {
+    return {
+      pagination: {}
+    };
+  },
   components: {
     Navbar,
     Sidebar,
     Products,
     Alert
-  },
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../assets/scss/dashboard";
+@import "../assets/scss/dashboard.scss";
 </style>
+

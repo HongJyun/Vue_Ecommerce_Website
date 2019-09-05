@@ -1,0 +1,71 @@
+<template>
+  <footer>
+    <div class="subscript bg-primary py-5 mt-sm-6">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div
+            class="col-lg-5 d-flex align-items-center justify-content-md-start justify-content-center"
+          >
+            <!-- <img src="/img/logo-light.svg" width="40" alt="logo white"> -->
+            <span class="text-white h4 mb-0 mx-4 text-nowrap">DAILY OFFERS & DISCOUNTS</span>
+          </div>
+          <div class="col-lg-5 mt-4 mt-lg-0">
+            <form
+              class="form-square form-square-withicon d-flex align-items-center justify-content-between"
+              action="#"
+              method="POST"
+            >
+              <label for="subscription" class="material-icons form-square-icon-left">email</label>
+              <input class="form-input" type="email" id="email" />
+              <button class="bg-accent btn btn-lg d-flex" type="submit">
+                <i class="material-icons">arrow_forward</i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom bg-light">
+      <div class="container pt-6 pb-5">
+        <div class="contact row justify-content-center d-flex">
+          <div class="col-md-5">
+            <a href="#">
+              <img src="/img/logotype-lg-dark.svg" height="27" alt="logo" id="logo" />
+            </a>
+            <div class="contact-info mt-9 list-unstyled">
+              <li>服務時間：週一至週五 10:00-18:30</li>
+              <li>
+                <a href="tel:+01-1234-5678">01-1234-5678</a>
+              </li>
+              <li>800 高雄市新興區幸福路 520 號</li>
+            </div>
+            <div class="social-media">
+              <a href="#">
+                <img src="img/ic-line@.svg" height="32" alt />
+              </a>
+              <a href="#">
+                <img src="img/ic-facebook.svg" height="32" alt />
+              </a>
+            </div>
+          </div>
+          <div class="col-md-5 text-right d-none d-md-block">
+            <img class="mt--2" src="img/sm-今天是個吃甜點的好日子.svg" width="60" alt />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="py-3">
+      <div class="align-self-end mt-4 mt-sm-0 mr-auto text-center">
+        <div>資料、圖片來源皆來自網路，非商業使用，僅用來做為學習用途。</div>
+        <div>&copy;2019 Frank All Rights Reserved</div>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<script>
+export default {
+  name: "Mainfooter"
+};
+</script>

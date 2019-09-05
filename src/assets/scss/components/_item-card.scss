@@ -1,43 +1,61 @@
 .card {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    .item-img {
-        height: 315px;
-        background-size: cover;
-        background-position: center center;
-        position: relative;
-    }
+  .img-wrapper {
+    overflow: hidden;
+  }
 
-    .item-tag {
-        position: absolute;
-        left: 20px;
-        top: 0;
-        background-color: $primary;
-        writing-mode: vertical-lr;
-        padding: 15px 10px;
-        color: white;
-        letter-spacing: 5px;
-    }
+  .item-img {
+    height: 315px;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    transition: all 0.2s;
 
-    .item-info {
-        border: 1px solid $primary-200
+    &:hover {
+      transform: scale(1.05);
     }
+  }
 
-    .item-title,
-    .item-price {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        font-size: $font-size-lg;
-    }
+  .item-tag {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    background-color: $primary;
+    writing-mode: vertical-lr;
+    padding: 15px 10px;
+    color: white;
+    letter-spacing: 5px;
+  }
 
-    .item-title {
-        border-right: 1px solid $primary-200;
-    }
+  .item-info {
+    border: 1px solid $primary-200;
+  }
 
-    .item-stared-icon {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    }
+  .item-title,
+  .item-price {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: $font-size-lg;
+    flex-grow: 2;
+  }
+
+  .origin-price {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: $font-size-sm;
+    color: gray;
+    text-decoration: line-through;
+  }
+
+  .item-title {
+    border-right: 1px solid $primary-200;
+  }
+
+  .item-stared-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
 }

@@ -21,6 +21,7 @@ Vue.filter("currency", CurrencyFilter);
 
 axios.defaults.withCredentials = true;
 
+// vee-validate
 Vue.use(VueI18n);
 
 const i18n = new VueI18n({
@@ -41,6 +42,8 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 
+
+// router guard
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth) {
     const api = `${process.env.VUE_APP_API}/api/user/check`;

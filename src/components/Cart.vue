@@ -1,12 +1,12 @@
 <template>
-  <section class="container px-0 px-md-2">
+  <section class="container px-0 px-lg-2">
     <div class="row no-gutters">
-      <div class="col pr-md-2">
+      <div class="col pr-lg-2">
         <h4 class="bg-light py-3 font-weight-bold text-center mb-5">您的購物車</h4>
         <div class="cart">
-          <div class="cart-row d-md-flex pb-md-4 mb-4" v-for="item in carts" :key="item.id">
+          <div class="cart-row d-lg-flex pb-lg-4 mb-4" v-for="item in carts" :key="item.id">
             <div
-              class="d-flex flex-md-row align-items-md-center justify-content-between flex-fill px-5 px-md-0 text-nowrap"
+              class="d-flex flex-fill col flex-lg-row align-items-lg-center justify-content-between px-5 px-lg-0 text-nowrap"
             >
               <div>
                 <div
@@ -15,41 +15,42 @@
                   :style="{backgroundImage : `url(${item.product.imageUrl})`}"
                 ></div>
               </div>
-              <div class="d-flex flex-column flex-md-row justify-content-around flex-fill ml-3">
-                <div class="cart-item mb-2 mx-md-5 mb-md-0">
-                  <span class="cart-item-title h5">{{ item.product.title | currency }}</span>
+              <div class="d-flex flex-column flex-lg-row justify-content-between flex-fill ml-3">
+                <div class="cart-item mb-2 mx-lg-5 mb-lg-0">
+                  <span class="cart-item-title h5 font-weight-bold">{{ item.product.title }}</span>
                   <br />
                   <span class="cart-item-price">{{ item.product.price | currency }}</span>
                 </div>
-                <div class="cart-quantity">
+                <div class="cart-quantity align-self-lg-center;;">
                   <div class="input-group carts-input-group">
-                    <div class="input-group-prepend">
+                    <!-- <div class="input-group-prepend">
                       <button type="button" class="btn text-primary material-icons">remove</button>
                     </div>
                     <input type="text" class="form-control" :value="item.product.num" maxlength="2" />
                     <div class="input-group-append">
                       <button type="button" class="btn text-primary material-icons">add</button>
-                    </div>
+                    </div>-->
+                    <div class="font-weight-bold h5 m-0">購買數量: {{ item.product.qty }}</div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="flex-fill align-items-center d-flex justify-content-between">
+            <div class="flex-fill col-4 align-items-center d-flex ml-auto">
               <div
-                class="cart-price justify-content-end flex-fill mx-5 mt-2 mt-md-0 mb-0 py-3 h5 font-weight-bold text-nowrap text-md-center text-right"
+                class="cart-price justify-content-end flex-fill mx-5 mt-2 mt-lg-0 mb-0 py-3 h5 font-weight-bold text-center"
               >{{ item.total | currency }}</div>
               <button
                 @click="deleteCart(item.id)"
                 type="button"
-                class="btn text-primary material-icons d-none d-md-block"
+                class="btn text-primary material-icons d-none d-lg-block"
               >delete_outline</button>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col mt-5 mt-md-0">
-      <div class="mx-3 mx-md-0 px-3 pb-3 bg-md-primary">
+    <div class="col mt-5 mt-lg-0">
+      <div class="px-3 pb-3 bg-md-primary">
         <h2
           class="py-3 mb-3 text-center text-white text-md-down-primary h4 border-bottom bg-sm-light"
         >訂單摘要</h2>
@@ -118,9 +119,6 @@ export default {
         vm.carts = res.data.data.carts;
         vm.total = res.data.data.total;
         vm.finalTotal = res.data.data.final_total;
-        if (vm.carts[0]) {
-          vm.$set(vm.carts[0], "", res.data.data.carts[0]);
-        }
       });
     },
     deleteCart(id) {
@@ -131,6 +129,7 @@ export default {
         console.log("del", res);
         vm.isLoading = false;
       });
+
       this.getCart();
     },
     applyCoupon() {
@@ -149,6 +148,12 @@ export default {
   },
   created() {
     this.getCart();
+  },
+  updated() {
+    const vm = this;
+    if (vm.carts[0]) {
+      vm.$set(vm.carts, "", "");
+    }
   }
 };
 </script>

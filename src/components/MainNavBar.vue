@@ -12,59 +12,36 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">
-        <img
-          src="img/logo-all-dark.svg"
-          width="220"
-          height="40"
-          alt
-          class="d-none d-md-inline-block"
-        />
-        <img
-          src="img/logotype-sm-dark.svg"
-          width="114"
-          height="18"
-          alt
-          class="d-inline-block d-md-none"
-        />
-      </a>
+      <a class="navbar-brand" href="#">Tech gadgets</a>
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto font-weight-bold">
-          <li class="nav-item active">
+          <li class="nav-item" :class="{active: this.$route.name == 'about'}">
             <router-link class="nav-link" to="/about">首頁</router-link>
             <span class="sr-only">首頁</span>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item" :class="{active: this.$route.name == 'shop'}">
             <router-link class="nav-link" to="/shop">商品列表</router-link>
           </li>
-          <li class="nav-item dropdown">
-            <router-link
-              to="/shop"
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdown"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >商品列表</router-link>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/admin/products">後臺管理</router-link>
+            <router-link
+              class="nav-link"
+              :class="{active: this.$route.name == 'admin'}"
+              to="/admin/products"
+            >後臺管理</router-link>
             <span class="sr-only">後臺管理</span>
           </li>
         </ul>
       </div>
-      <router-link to="/checkout" class="nav-link d-flex align-items-center" href="#" tabindex="-1">
+      <router-link
+        to="/checkout"
+        class="nav-link d-flex align-items-center"
+        :class="{active: this.$route.name == 'checkout'}"
+        href="#"
+        tabindex="-1"
+      >
         <i class="material-icons">shopping_cart</i>
-        <span class="badge badge-secondary" >{{ this.cartQty }}</span>
+        <span class="badge badge-secondary">{{ this.cartQty }}</span>
       </router-link>
     </nav>
   </header>
@@ -80,7 +57,6 @@ export default {
   },
   methods: {
     getCart() {
-      this.$emit("emitGetCart");
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
       const vm = this;
       vm.isLoading = true;
@@ -93,6 +69,7 @@ export default {
   },
   created() {
     this.getCart();
+    console.log(this.$route.name);
   }
 };
 </script>

@@ -22,11 +22,6 @@ import Alert from "../components/AlertMessage";
 
 export default {
   name: "Dashboard",
-  data() {
-    return {
-      pagination: {}
-    };
-  },
   components: {
     Navbar,
     Sidebar,

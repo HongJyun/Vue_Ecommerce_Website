@@ -50,7 +50,7 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/admin/products" class="nav-link">
+          <router-link to="/admin/order" class="nav-link">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"

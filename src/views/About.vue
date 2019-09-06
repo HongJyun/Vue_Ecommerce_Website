@@ -3,32 +3,30 @@
     <section class="hero">
       <div class="bd-example">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-          </ol>
           <div class="carousel-inner">
+            <div class="carousel-caption d-none d-md-block">
+              <h1>LOVE x TECH x LIFE</h1>
+              <h2>All the quality products you need.</h2>
+            </div>
             <div class="carousel-item active">
-              <img src="https://fakeimg.pl/1920x1024/" class="d-block w-100" alt="..." />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>First slide label</h5>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-              </div>
+              <div
+                style="background-image:url(https://images.unsplash.com/photo-1500726726099-3f759a2eaa99?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60)"
+                class="d-block w-100"
+              ></div>
             </div>
             <div class="carousel-item">
-              <img src="https://fakeimg.pl/1920x1024/" class="d-block w-100" alt="..." />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>Second slide label</h5>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-              </div>
+              <div
+                style="background-image:url(https://images.unsplash.com/photo-1504610926078-a1611febcad3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80)"
+                class="d-block w-100"
+                alt="..."
+              ></div>
             </div>
             <div class="carousel-item">
-              <img src="https://fakeimg.pl/1920x1024/" class="d-block w-100" alt="..." />
-              <div class="carousel-caption d-none d-md-block">
-                <h5>Third slide label</h5>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-              </div>
+              <div
+                style="background-image:url(https://images.unsplash.com/photo-1518719028738-e7262020a932?ixlib=rb-1.2.1&dpr=1&auto=format&fit=crop&w=525&q=60)"
+                class="d-block w-100"
+                alt="..."
+              ></div>
             </div>
           </div>
           <a
@@ -57,63 +55,59 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-lg-4 mt-1">
-            <div class="card border-0 text-center text-white">
-              <img
-                src="https://d19m59y37dris4.cloudfront.net/sell/1-2-5/img/photo/benjamin-voros-260869-unsplash.b4e74271.jpg"
-                alt="Card image"
-                class="card-img"
-              />
-              <div class="card-img-overlay d-flex align-items-center">
-                <div class="w-100">
-                  <h2 class="display-4 mb-4">Jackets</h2>
-                  <a href="category.html" class="btn btn-link text-white">
-                    Shop now
+            <router-link to="/shop" class="btn btn-link text-white card-hover">
+              <div class="card border-0 text-center text-white">
+                <img
+                  src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                  alt="Card image"
+                  class="card-img"
+                />
+                <div class="card-img-overlay d-flex align-items-center">
+                  <div class="w-100">
+                    <h2 class="display-4 mb-4">Tech</h2>Shop now
                     <i class="fa-arrow-right fa ml-2"></i>
-                  </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            </router-link>
           </div>
           <div class="col-md-6 col-lg-4 mt-1">
-            <div class="card border-0 text-center text-white">
-              <img
-                src="https://d19m59y37dris4.cloudfront.net/sell/1-2-5/img/photo/benjamin-voros-260869-unsplash.b4e74271.jpg"
-                alt="Card image"
-                class="card-img"
-              />
-              <div class="card-img-overlay d-flex align-items-center">
-                <div class="w-100">
-                  <h2 class="display-4 mb-4">Jackets</h2>
-                  <a href="category.html" class="btn btn-link text-white">
-                    Shop now
+            <router-link to="/shop" class="btn btn-link text-white card-hover">
+              <div class="card border-0 text-center text-white">
+                <img
+                  src="https://images.unsplash.com/photo-1553481187-be93c21490a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                  alt="Card image"
+                  class="card-img"
+                />
+                <div class="card-img-overlay d-flex align-items-center">
+                  <div class="w-100">
+                    <h2 class="display-4 mb-4">Game</h2>Shop now
                     <i class="fa-arrow-right fa ml-2"></i>
-                  </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            </router-link>
           </div>
           <div class="col-md-6 col-lg-4 mt-1">
-            <div class="card border-0 text-center text-white">
-              <img
-                src="https://d19m59y37dris4.cloudfront.net/sell/1-2-5/img/photo/benjamin-voros-260869-unsplash.b4e74271.jpg"
-                alt="Card image"
-                class="card-img"
-              />
-              <div class="card-img-overlay d-flex align-items-center">
-                <div class="w-100">
-                  <h2 class="display-4 mb-4">Jackets</h2>
-                  <a href="category.html" class="btn btn-link text-white">
-                    Shop now
+            <router-link to="/shop" class="btn btn-link text-white card-hover">
+              <div class="card border-0 text-center text-white">
+                <img
+                  src="https://images.unsplash.com/photo-1480434945668-94be06bbd507?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80"
+                  alt="Card image"
+                  class="card-img"
+                />
+                <div class="card-img-overlay d-flex align-items-center">
+                  <div class="w-100">
+                    <h2 class="display-4 mb-4">Outdoor</h2>Shop now
                     <i class="fa-arrow-right fa ml-2"></i>
-                  </a>
+                  </div>
                 </div>
               </div>
-            </div>
+            </router-link>
           </div>
         </div>
       </div>
     </section>
-
   </div>
 </template>
 

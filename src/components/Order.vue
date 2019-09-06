@@ -17,7 +17,7 @@
           </div>
 
           <form class="text-white">
-            <label class="h5 font-weight-bold" for="useremail">Email</label>
+            <label class="h5 font-weight-bold" for="useremail">Email*</label>
             <div class="form-group">
               <input
                 type="email"
@@ -32,7 +32,7 @@
             </div>
 
             <div class="form-row">
-              <label class="col-12 h5 font-weight-bold" for="username">收件人姓名</label>
+              <label class="col-12 h5 font-weight-bold" for="username">收件人姓名*</label>
               <div class="form-group col">
                 <input
                   type="text"
@@ -61,7 +61,7 @@
 
             <div class="form-row">
               <div class="form-group col">
-                <label class="h5 font-weight-bold" for="useraddress">收件人地址</label>
+                <label class="h5 font-weight-bold" for="useraddress">收件人地址*</label>
                 <input
                   type="text"
                   class="form-control"
@@ -84,7 +84,6 @@
                   cols="30"
                   rows="10"
                   v-model="form.message"
-                  v-validate="'required'"
                 ></textarea>
               </div>
             </div>
@@ -119,13 +118,7 @@ export default {
       }
     };
   },
-  // computed: {
-  //   prepostOrder() {
 
-  //     let order = this.carts.map(item=>item.product)
-  //     return order;
-  //   }
-  // },
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
@@ -174,6 +167,12 @@ export default {
         if (valid) {
           this.$http.post(api, { data: order }).then(res => {
             console.log("create", res);
+            console.log("id", res.data.orderId);
+            if (res.data.success) {
+              vm.$router.push(`/checkout/order_check/${res.data.orderId}`);
+            } else {
+              console.log("id", res.data);
+            }
           });
         } else {
           console.log("欄位不完整");

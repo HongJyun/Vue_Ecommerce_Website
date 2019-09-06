@@ -228,6 +228,7 @@ export default {
           vm.getCoupons();
           this.$bus.$emit("message:push", res.data.message, "danger");
         }
+        vm.isLoading = false;
       });
     },
     deleteCoupon() {

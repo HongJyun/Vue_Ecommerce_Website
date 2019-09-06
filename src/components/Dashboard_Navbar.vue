@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <router-link to="/" class="navbar-brand col-sm-3 col-md-2 mr-0">Company name</router-link>
+    <router-link to="/" class="navbar-brand col-sm-3 col-md-2 mr-0">Tech gadgets</router-link>
     <input
       class="form-control form-control-dark w-100"
       type="text"

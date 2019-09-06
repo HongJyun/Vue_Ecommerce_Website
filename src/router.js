@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import About from "./views/About.vue";
 import Shop from "./views/Shop.vue";
+
 import Checkout from "./views/Checkout.vue";
 import Cart from "./components/Cart.vue";
 import Order from "./components/Order.vue";
@@ -12,6 +13,7 @@ import Order_check from "./components/Order_check.vue";
 import Dashboard from "./views/Dashboard.vue";
 import Products from "./components/Dashboard_Products.vue";
 import Coupon from "./components/Dashboard_Coupon.vue";
+import Order_review from "./components/Dashboard_Order.vue";
 
 Vue.use(Router);
 
@@ -61,7 +63,7 @@ export default new Router({
               component: Order
             },
             {
-              path: "order_check",
+              path: "order_check/:orderId",
               name: "order_check",
               component: Order_check
             }
@@ -85,6 +87,12 @@ export default new Router({
           path: "coupon",
           name: "coupon",
           component: Coupon,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: "order",
+          name: "order_review",
+          component: Order_review,
           meta: { requiresAuth: true }
         }
       ]

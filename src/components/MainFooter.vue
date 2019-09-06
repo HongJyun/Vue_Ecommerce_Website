@@ -7,7 +7,7 @@
             class="col-lg-5 d-flex align-items-center justify-content-md-start justify-content-center"
           >
             <!-- <img src="/img/logo-light.svg" width="40" alt="logo white"> -->
-            <span class="text-white h4 mb-0 mx-4 text-nowrap">DAILY OFFERS & DISCOUNTS</span>
+            <span class="text-white h4 mb-0 mx-4 text-nowrap">Subscribe To Learn More.</span>
           </div>
           <div class="col-lg-5 mt-4 mt-lg-0">
             <form
@@ -17,9 +17,9 @@
             >
               <label for="subscription" class="material-icons form-square-icon-left">email</label>
               <input class="form-input" type="email" id="email" />
-              <button class="bg-accent btn btn-lg d-flex" type="submit">
+              <a class="bg-accent btn btn-lg d-flex" >
                 <i class="material-icons">arrow_forward</i>
-              </button>
+              </a>
             </form>
           </div>
         </div>
@@ -27,30 +27,20 @@
     </div>
 
     <div class="bottom bg-light">
-      <div class="container pt-6 pb-5">
+      <div class="container pt-5 pb-5">
         <div class="contact row justify-content-center d-flex">
           <div class="col-md-5">
-            <a href="#">
-              <img src="/img/logotype-lg-dark.svg" height="27" alt="logo" id="logo" />
-            </a>
-            <div class="contact-info mt-9 list-unstyled">
+            <a class=".h1" href="#">Tech gadgets</a>
+            <div class="contact-info mt-3 list-unstyled">
               <li>服務時間：週一至週五 10:00-18:30</li>
               <li>
                 <a href="tel:+01-1234-5678">01-1234-5678</a>
               </li>
               <li>800 高雄市新興區幸福路 520 號</li>
             </div>
-            <div class="social-media">
-              <a href="#">
-                <img src="img/ic-line@.svg" height="32" alt />
-              </a>
-              <a href="#">
-                <img src="img/ic-facebook.svg" height="32" alt />
-              </a>
-            </div>
+    
           </div>
           <div class="col-md-5 text-right d-none d-md-block">
-            <img class="mt--2" src="img/sm-今天是個吃甜點的好日子.svg" width="60" alt />
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 <template>
   <nav aria-label="Page navigation example">
     <ul class="pagination">
-      <li v-if="pages.has_pre" class="page-item">
+      <li v-if="pages.has_pre != undefined &&pages.has_pre" class="page-item">
         <a
           class="page-link"
           href="#"
@@ -20,7 +20,7 @@
         <a class="page-link" href="#" @click.prevent="getPagination(page)">{{ page }}</a>
       </li>
 
-      <li v-if="pages.has_next" class="page-item">
+      <li v-if="pages.has_next != undefined && pages.has_next" class="page-item">
         <a
           class="page-link"
           href="#"

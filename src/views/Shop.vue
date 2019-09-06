@@ -66,7 +66,7 @@
           </div>
         </div>
       </div>
-      
+
       <!-- MainContent -->
       <!-- SideBar -->
       <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
@@ -142,7 +142,13 @@ export default {
     return {
       products: [],
       product: {},
-      pagination: {},
+      pagination: {
+        category: null,
+        current_page: 1,
+        has_next: false,
+        has_pre: false,
+        total_pages: 1
+      },
       filterKeyword: "all",
       isLoading: false,
       fullPage: true

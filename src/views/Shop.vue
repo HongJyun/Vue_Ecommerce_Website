@@ -142,13 +142,7 @@ export default {
     return {
       products: [],
       product: {},
-      pagination: {
-        category: null,
-        current_page: 1,
-        has_next: false,
-        has_pre: false,
-        total_pages: 1
-      },
+      pagination: {},
       filterKeyword: "all",
       isLoading: false,
       fullPage: true

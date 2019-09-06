@@ -6,8 +6,12 @@ import About from "./views/About.vue";
 import Shop from "./views/Shop.vue";
 import Checkout from "./views/Checkout.vue";
 import Cart from "./components/Cart.vue";
+import Order from "./components/Order.vue";
+import Order_check from "./components/Order_check.vue";
+
 import Dashboard from "./views/Dashboard.vue";
 import Products from "./components/Dashboard_Products.vue";
+import Coupon from "./components/Dashboard_Coupon.vue";
 
 Vue.use(Router);
 
@@ -50,6 +54,16 @@ export default new Router({
               path: "cart",
               name: "checkout-1",
               component: Cart
+            },
+            {
+              path: "order",
+              name: "order",
+              component: Order
+            },
+            {
+              path: "order_check",
+              name: "order_check",
+              component: Order_check
             }
           ]
         }
@@ -65,6 +79,12 @@ export default new Router({
           path: "products",
           name: "products",
           component: Products,
+          meta: { requiresAuth: true }
+        },
+        {
+          path: "coupon",
+          name: "coupon",
+          component: Coupon,
           meta: { requiresAuth: true }
         }
       ]

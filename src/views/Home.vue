@@ -20,6 +20,6 @@ export default {
     About,
     Shop,
     MainFooter
-  }
+  },
 };
 </script>

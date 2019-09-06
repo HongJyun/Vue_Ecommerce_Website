@@ -30,7 +30,7 @@
                     <div class="input-group-append">
                       <button type="button" class="btn text-primary material-icons">add</button>
                     </div>-->
-                    <div class="font-weight-bold h5 m-0">購買數量: {{ item.product.qty }}</div>
+                    <div class="font-weight-bold h5 m-0">購買數量: {{ item.qty }}</div>
                   </div>
                 </div>
               </div>

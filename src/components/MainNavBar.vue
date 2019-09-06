@@ -12,7 +12,7 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href="#">Tech gadgets</a>
+      <router to="/about" class="navbar-brand" href="#">Tech gadgets</router>
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto font-weight-bold">

@@ -26,7 +26,7 @@
 }
 
 .card-img {
-  transition: all 0.2s;
+  transition: all 0.3s;
 }
 
 .card-img-overlay {
@@ -37,6 +37,7 @@
   .card-img {
     transform: scale(0.95);
     box-shadow: black 1px 1px 5px;
+    border-radius: 5px
   }
 }
 

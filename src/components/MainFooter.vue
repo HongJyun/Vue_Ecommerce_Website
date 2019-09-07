@@ -48,7 +48,7 @@
     <div class="py-3">
       <div class="align-self-end mt-4 mt-sm-0 mr-auto text-center">
         <div>資料、圖片來源皆來自網路，非商業使用，僅用來做為學習用途。</div>
-        <div>&copy;2019 Frank All Rights Reserved</div>
+        <div>&copy;2019 HongJyun - All Rights Reserved</div>
       </div>
     </div>
   </footer>

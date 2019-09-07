@@ -19,8 +19,8 @@
       <tbody>
         <tr v-for="(item) in coupons" :key="item.code">
           <td>{{ item.title }}</td>
-          <td>{{ item.origin_price }}</td>
-          <td>{{ item.description }}</td>
+          <td>{{ item.percent }}</td>
+          <td>{{ item.due_date }}</td>
           <td>
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else>未啟用</span>
@@ -67,15 +67,15 @@
                     />
                   </div>
                   <div class="form-group col">
-                    <label for="origin_price">折扣(%)</label>
+                    <label for="percent">折扣(%)</label>
                     <input
                       required
-                      v-model="tempCoupon.origin_price"
+                      v-model="tempCoupon.percent"
                       type="number"
                       max="100"
                       min="0"
                       class="form-control"
-                      id="origin_price"
+                      id="percent"
                       placeholder="請輸入折扣%數"
                     />
                   </div>
@@ -83,24 +83,24 @@
 
                 <div class="form-row">
                   <div class="form-group col">
-                    <label for="description">優惠期限</label>
+                    <label for="due_date">優惠期限</label>
                     <input
                       required
-                      v-model="tempCoupon.description"
+                      v-model="tempCoupon.due_date"
                       type="date"
                       class="form-control"
-                      id="description"
+                      id="due_date"
                       placeholder="請輸入到期日"
                     />
                   </div>
                   <div class="form-group col">
-                    <label for="content">優惠代碼</label>
+                    <label for="code">優惠代碼</label>
                     <input
                       required
-                      v-model="tempCoupon.content"
+                      v-model="tempCoupon.code"
                       type="text"
                       class="form-control"
-                      id="content"
+                      id="code"
                       placeholder="請輸入優惠券代碼"
                     />
                   </div>
@@ -186,7 +186,7 @@ export default {
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then(res => {
-        console.log(res);
+        console.log("getCoupon", res.data);
         vm.coupons = res.data.coupons;
         vm.isLoading = false;
         vm.pagination = res.data.pagination;
@@ -212,6 +212,7 @@ export default {
       let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/`;
       let httpMethod = "post";
       const vm = this;
+      vm.tempCoupon.due_date = Math.floor(vm.tempCoupon.due_date / 1000);
 
       if (!vm.isNew) {
         api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/${vm.tempCoupon.id}`;
@@ -234,7 +235,9 @@ export default {
     deleteCoupon() {
       const vm = this;
       let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/${vm.tempCoupon.id}`;
+      vm.isLoading = true;
       this.$http.delete(api, { data: vm.tempCoupon }).then(res => {
+        vm.isLoading = false;
         $("#delCouponModal").modal("hide");
         vm.getCoupons();
       });

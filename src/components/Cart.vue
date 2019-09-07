@@ -1,5 +1,8 @@
 <template>
   <section class="container px-0 px-lg-2">
+    <div class="vld-parent">
+      <loading :active.sync="isLoading"></loading>
+    </div>
     <div class="row no-gutters">
       <div class="col pr-lg-2">
         <h4 class="bg-light py-3 font-weight-bold text-center mb-5">您的購物車</h4>
@@ -98,23 +101,18 @@ export default {
       carts: [],
       total: "",
       finalTotal: "",
-      couponCode: ""
+      couponCode: "",
+      isLoading: false,
+      fullPage: true
     };
   },
-  // computed: {
-  //   prepostOrder() {
-
-  //     let order = this.carts.map(item=>item.product)
-  //     return order;
-  //   }
-  // },
   methods: {
     getCart() {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
       const vm = this;
       vm.isLoading = true;
+
       this.$http.get(api).then(res => {
-        console.log("nav", res.data);
         vm.isLoading = false;
         vm.carts = res.data.data.carts;
         vm.total = res.data.data.total;
@@ -126,11 +124,10 @@ export default {
       const vm = this;
       vm.isLoading = true;
       this.$http.delete(api).then(res => {
-        console.log("del", res);
+        vm.$bus.$emit("updateCartQty");
         vm.isLoading = false;
+        vm.getCart();
       });
-
-      this.getCart();
     },
     applyCoupon() {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`;
@@ -140,20 +137,14 @@ export default {
         content: vm.couponCode
       };
       this.$http.post(api, { data: coupon }).then(res => {
-        console.log("coupon", res);
+        console.log(res.data)
         vm.isLoading = false;
+        this.getCart();
       });
-      this.getCart();
     }
   },
   created() {
     this.getCart();
-  },
-  updated() {
-    const vm = this;
-    if (vm.carts[0]) {
-      vm.$set(vm.carts, "", "");
-    }
   }
 };
 </script>

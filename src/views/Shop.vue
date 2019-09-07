@@ -48,6 +48,7 @@
                 <div class="h4" v-if="product.price">現在只要 {{ product.price }} 元</div>
               </div>
               <select name class="form-control mt-3" v-model="product.num">
+                <option value="0" disabled selected>--請選擇--</option>
                 <option :value="num" v-for="num in 10" :key="num">選購 {{num}} {{product.unit}}</option>
               </select>
             </div>
@@ -72,14 +73,34 @@
       <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
         <div class="row">
           <aside class="col-lg-4 col-xl-2 text-center">
-            <h2 class="bg-primary font-weight-bold h4 text-white mb-0 py-3">Categories</h2>
+            <h2
+              class="bg-primary font-weight-bold h4 text-white mb-0 py-3"
+            >Categories</h2>
             <div class="list-group" id="Categories">
-              <a href="#" class="list-group-item list-group-item-action h4 font-weight-bold">Tech</a>
-              <a href="#" class="list-group-item list-group-item-action h4 font-weight-bold">Game</a>
-              <a href="#" class="list-group-item list-group-item-action h4 font-weight-bold">Outdoor</a>
               <a
                 href="#"
                 class="list-group-item list-group-item-action h4 font-weight-bold"
+              :class="{'active': filterKeyword ==='All'}"
+              >All</a>
+              <a
+                href="#"
+                class="list-group-item list-group-item-action h4 font-weight-bold"
+                :class="{'active': filterKeyword ==='Tech'}"
+              >Tech</a>
+              <a
+                href="#"
+                class="list-group-item list-group-item-action h4 font-weight-bold"
+                :class="{'active': filterKeyword ==='Game'}"
+              >Game</a>
+              <a
+                href="#"
+                class="list-group-item list-group-item-action h4 font-weight-bold"
+                :class="{'active': filterKeyword ==='Outdoor'}"
+              >Outdoor</a>
+              <a
+                href="#"
+                class="list-group-item list-group-item-action h4 font-weight-bold"
+                :class="{'active': filterKeyword ==='Accessory'}"
               >Accessory</a>
             </div>
           </aside>
@@ -143,7 +164,7 @@ export default {
       products: [],
       product: {},
       pagination: {},
-      filterKeyword: "all",
+      filterKeyword: "All",
       isLoading: false,
       fullPage: true
     };
@@ -151,7 +172,7 @@ export default {
   computed: {
     filterdProducts() {
       const vm = this;
-      if (vm.filterKeyword === "all") {
+      if (vm.filterKeyword === "All") {
         return vm.products;
       } else {
         return vm.products.filter(
@@ -177,8 +198,10 @@ export default {
       vm.isLoading = true;
       this.$http.get(api).then(res => {
         vm.product = res.data.product;
+        vm.product.num = 0;
         vm.isLoading = false;
         $("#productModal").modal("show");
+        console.log(vm.product);
       });
     },
     addtoCart(id, qty = 1) {
@@ -191,15 +214,15 @@ export default {
 
       vm.isLoading = true;
       this.$http.post(api, { data: cart }).then(res => {
-        console.log(res);
         if (res.data.success) {
           this.$bus.$emit("message:push", res.data.message, "success");
+          this.$bus.$emit("updateCartQty");
         } else {
           this.$bus.$emit("message:push", res.data.message, "danger");
         }
+        vm.getCart();
         vm.isLoading = false;
         $("#productModal").modal("hide");
-        vm.getCart();
       });
     },
     getCart() {

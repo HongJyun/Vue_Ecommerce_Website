@@ -68,8 +68,11 @@ export default {
     }
   },
   created() {
-    this.getCart();
-    console.log(this.$route.name);
+    const vm = this;
+    vm.getCart();
+    vm.$bus.$on("updateCartQty", () => {
+      vm.getCart();
+    });
   }
 };
 </script>

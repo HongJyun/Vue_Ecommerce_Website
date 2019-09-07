@@ -186,7 +186,7 @@ export default {
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then(res => {
-        console.log("getCoupon", res.data);
+        console.log('getCoupon',res.data);
         vm.coupons = res.data.coupons;
         vm.isLoading = false;
         vm.pagination = res.data.pagination;
@@ -212,7 +212,6 @@ export default {
       let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/`;
       let httpMethod = "post";
       const vm = this;
-      vm.tempCoupon.due_date = Math.floor(vm.tempCoupon.due_date / 1000);
 
       if (!vm.isNew) {
         api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/${vm.tempCoupon.id}`;

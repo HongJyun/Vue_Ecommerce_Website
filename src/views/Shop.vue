@@ -73,35 +73,15 @@
       <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
         <div class="row">
           <aside class="col-lg-4 col-xl-2 text-center">
-            <h2
-              class="bg-primary font-weight-bold h4 text-white mb-0 py-3"
-            >Categories</h2>
-            <div class="list-group" id="Categories">
-              <a
-                href="#"
+            <h2 class="bg-primary font-weight-bold h4 text-white mb-0 py-3">Categories</h2>
+            <div class="list-group" id="Categories" v-for="cat in categories" :key="cat">
+              <router-link
+                :to="{ name: 'shop', 
+                params: {category: `${ cat }`}
+                }"
                 class="list-group-item list-group-item-action h4 font-weight-bold"
-              :class="{'active': filterKeyword ==='All'}"
-              >All</a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action h4 font-weight-bold"
-                :class="{'active': filterKeyword ==='Tech'}"
-              >Tech</a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action h4 font-weight-bold"
-                :class="{'active': filterKeyword ==='Game'}"
-              >Game</a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action h4 font-weight-bold"
-                :class="{'active': filterKeyword ==='Outdoor'}"
-              >Outdoor</a>
-              <a
-                href="#"
-                class="list-group-item list-group-item-action h4 font-weight-bold"
-                :class="{'active': filterKeyword ==='Accessory'}"
-              >Accessory</a>
+                :class="{'active': filterKeyword === cat}"
+              >{{ cat }}</router-link>
             </div>
           </aside>
           <!-- Products -->
@@ -136,7 +116,7 @@
                   </div>
                   <a
                     @click.prevent="addtoCart(item.id)"
-                    href
+                    href="javascript:;"
                     class="btn-lg btn-light btn btn-block text-primary font-weight-bold"
                   >加入購物車</a>
                 </div>
@@ -164,19 +144,21 @@ export default {
       products: [],
       product: {},
       pagination: {},
-      filterKeyword: "All",
+      filterKeyword: "all",
       isLoading: false,
-      fullPage: true
+      fullPage: true,
+      categories: ["all", "tech", "game", "outdoor", "accessory"]
     };
   },
   computed: {
     filterdProducts() {
       const vm = this;
-      if (vm.filterKeyword === "All") {
+      if (vm.filterKeyword === "all") {
         return vm.products;
       } else {
         return vm.products.filter(
-          product => product.category === vm.filterKeyword
+          product =>
+            product.category.toLowerCase() === vm.filterKeyword.toLowerCase()
         );
       }
     }
@@ -193,16 +175,8 @@ export default {
       });
     },
     getProduct(id) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
-      const vm = this;
-      vm.isLoading = true;
-      this.$http.get(api).then(res => {
-        vm.product = res.data.product;
-        vm.product.num = 0;
-        vm.isLoading = false;
-        $("#productModal").modal("show");
-        console.log(vm.product);
-      });
+      console.log(id)
+      this.$router.push(`/itempage/${id}`)
     },
     addtoCart(id, qty = 1) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
@@ -244,9 +218,14 @@ export default {
   },
   mounted() {
     const vm = this;
-    document.querySelector("#Categories").addEventListener("click", e => {
-      vm.filterKeyword = e.target.textContent;
-    });
+    let category = this.$route.params.category;
+    vm.filterKeyword = category;
+  },
+  watch: {
+    $route(now) {
+      let category = this.$route.params.category;
+      this.filterKeyword = category;
+    }
   }
 };
 </script>

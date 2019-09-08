@@ -55,7 +55,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 col-lg-4 mt-1">
-            <router-link to="/shop" class="btn btn-link text-white card-hover">
+            <router-link to="/shop/tech" class="btn btn-link text-white card-hover">
               <div class="card border-0 text-center text-white">
                 <img
                   src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
@@ -72,7 +72,7 @@
             </router-link>
           </div>
           <div class="col-md-6 col-lg-4 mt-1">
-            <router-link to="/shop" class="btn btn-link text-white card-hover">
+            <router-link to="/shop/game" class="btn btn-link text-white card-hover">
               <div class="card border-0 text-center text-white">
                 <img
                   src="https://images.unsplash.com/photo-1553481187-be93c21490a9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
@@ -89,7 +89,7 @@
             </router-link>
           </div>
           <div class="col-md-6 col-lg-4 mt-1">
-            <router-link to="/shop" class="btn btn-link text-white card-hover">
+            <router-link to="/shop/outdoor" class="btn btn-link text-white card-hover">
               <div class="card border-0 text-center text-white">
                 <img
                   src="https://images.unsplash.com/photo-1480434945668-94be06bbd507?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80"

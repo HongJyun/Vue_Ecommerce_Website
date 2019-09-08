@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import About from "./views/About.vue";
 import Shop from "./views/Shop.vue";
+import ShopItemDetail from "./views/ShopItemDetail.vue";
 
 import Checkout from "./views/Checkout.vue";
 import Cart from "./components/Cart.vue";
@@ -33,8 +34,16 @@ export default new Router({
       children: [
         {
           path: "shop",
+          redirect: "shop/all"
+        },
+        {
+          path: "shop/:category",
           name: "shop",
           component: Shop
+        },
+        {
+          path: "itempage/:itemId",
+          component: ShopItemDetail
         },
         {
           path: "login",

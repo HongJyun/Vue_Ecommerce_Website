@@ -17,7 +17,7 @@
             >
               <label for="subscription" class="material-icons form-square-icon-left">email</label>
               <input class="form-input" type="email" id="email" />
-              <a class="bg-accent btn btn-lg d-flex" >
+              <a href="javascript:;" class="bg-accent btn btn-lg d-flex" >
                 <i class="material-icons">arrow_forward</i>
               </a>
             </form>
@@ -30,13 +30,13 @@
       <div class="container pt-5 pb-5">
         <div class="contact row justify-content-center d-flex">
           <div class="col-md-5">
-            <a class=".h1" href="#">Tech gadgets</a>
+            <a class=".h1" href="#">皮客幫</a>
             <div class="contact-info mt-3 list-unstyled">
               <li>服務時間：週一至週五 10:00-18:30</li>
               <li>
                 <a href="tel:+01-1234-5678">01-1234-5678</a>
               </li>
-              <li>800 高雄市新興區幸福路 520 號</li>
+              <li>110 台北市信義區光復南路133號</li>
             </div>
     
           </div>

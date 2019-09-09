@@ -4,12 +4,16 @@
 
 // // 區塊式內容
 @import "components/carts";
+@import "components/layout";
 
 // // 元件
+@import "components/category-card";
 @import "components/item-card";
 @import "components/form-square";
 
+@import "components/interactive";
+
 // BS調整
-@import "components/_custom_bs";
+@import "components/custom_bs";
 // 通用類別
 @import "components/utilities";

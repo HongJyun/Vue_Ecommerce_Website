@@ -14,14 +14,14 @@
             <h3 class="d-lg-none" id="exampleModalLabel">{{ product.title }}</h3>
             <p class="mt-4 d-lg-none">{{ product.description}}</p>
             <h4>商品介紹</h4>
-            <hr>
-            <p class="mt-4">{{ product.content  }}</p>
+            <hr />
+            <p class="mt-4">{{ product.content }}</p>
           </div>
         </div>
         <div class="col-lg-5">
           <div class>
             <h3 class="d-lg-block d-none">{{ product.title }}</h3>
-            <hr>
+            <hr />
             <p class="mt-4 d-lg-block d-none">{{ product.description }}</p>
             <div class="d-flex justify-content-between align-items-baseline mt-5">
               <div class="h4" v-if="!product.price">{{ product.origin_price }} 元</div>
@@ -116,6 +116,13 @@ export default {
     const vm = this;
     vm.id = this.$route.params.itemId;
     this.getProduct(vm.id);
+  },
+  watch: {
+    $route(now) {
+      const vm = this;
+      vm.id = this.$route.params.itemId;
+      this.getProduct(vm.id);
+    }
   }
 };
 </script>

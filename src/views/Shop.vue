@@ -10,64 +10,11 @@
         <!-- Hero Content-->
         <div class="hero-content pb-5 text-center">
           <h1 class="hero-heading">商品列表</h1>
-          <p class="lead text-muted">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt.
-          </p>
         </div>
       </div>
     </section>
 
     <section>
-      <!-- Modal -->
-      <div
-        class="modal fade"
-        id="productModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">{{ product.title }}</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <img :src="product.imageUrl" class="img-fluid" alt />
-              <blockquote class="blockquote mt-3">
-                <p class="mb-0">{{ product.content }}</p>
-                <!-- <footer class="blockquote-footer text-right">{{ product.description }}</footer> -->
-              </blockquote>
-              <div class="d-flex justify-content-between align-items-baseline">
-                <div class="h4" v-if="!product.price">{{ product.origin_price }} 元</div>
-                <del class="h6" v-if="product.price">原價 {{ product.origin_price }} 元</del>
-                <div class="h4" v-if="product.price">現在只要 {{ product.price }} 元</div>
-              </div>
-              <select name class="form-control mt-3" v-model="product.num">
-                <option value="0" disabled selected>--請選擇--</option>
-                <option :value="num" v-for="num in 10" :key="num">選購 {{num}} {{product.unit}}</option>
-              </select>
-            </div>
-            <div class="modal-footer">
-              <div class="text-muted text-nowrap mr-3" v-if="product.num > 0">
-                小計
-                <strong>{{ product.num * product.price }}</strong> 元
-              </div>
-              <button
-                :disabled="!product.num"
-                type="button"
-                class="btn btn-primary"
-                @click="addtoCart(product.id, product.num)"
-              >加到購物車</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- MainContent -->
       <!-- SideBar -->
       <div class="col-md-10 col-lg-10 col-xl-9 mx-auto">
@@ -85,25 +32,25 @@
             </div>
           </aside>
           <!-- Products -->
-          <main class="col-lg-8 col-xl-10">
+          <main class="col-lg-8 col-xl-10 mt-5 mt-md-0">
             <div class="row">
               <div
                 class="col-12 col-md-6 col-xl-4 mb-4 mb-sm-4"
                 v-for="item in filterdProducts"
                 :key="item.id"
               >
-                <div class="card">
+                <div class="item-card">
                   <a href="javascript:;" class="img-wrapper" @click="getProduct(item.id)">
                     <div class="item-img" :style="{backgroundImage : `url(${item.imageUrl})`}"></div>
                   </a>
                   <div class="item-tag">{{ item.category }}</div>
-                  <!-- <div class="item-stared-icon">
-                    <label class="ui-checked-display">
+                  <div class="item-stared-icon">
+                    <label class="ui-checked-display" @click.prevent="addToFavorite(item)">
                       <input type="checkbox" class="ui-checkbox" />
-                      <i class="material-icons ui-show">favorite</i>
-                      <i class="material-icons ui-hidden">favorite_border</i>
+                      <i class="material-icons" v-if="checkFavorite(item)">favorite</i>
+                      <i v-else class="material-icons">favorite_border</i>
                     </label>
-                  </div>-->
+                  </div>
                   <div class="item-info d-flex text-center text-nowrap">
                     <h3 class="item-title col">{{ item.title }}</h3>
                   </div>
@@ -115,9 +62,10 @@
                     </h3>
                   </div>
                   <a
-                    @click.prevent="addtoCart(item.id)"
+                    @click.prevent="addtoCart(item)"
                     href="javascript:;"
                     class="btn-lg btn-light btn btn-block text-primary font-weight-bold"
+                    :disabled="isLoading === true"
                   >加入購物車</a>
                 </div>
               </div>
@@ -136,18 +84,27 @@
 import $ from "jquery";
 import Pagination from "../components/Pagination";
 import Alert from "../components/AlertMessage";
+import { setTimeout } from "timers";
 
 export default {
   name: "Shop",
   data() {
     return {
       products: [],
-      product: {},
+      favPproducts: [],
       pagination: {},
       filterKeyword: "all",
       isLoading: false,
       fullPage: true,
-      categories: ["all", "tech", "game", "outdoor", "accessory"]
+      categories: [
+        "all",
+        "斜肩背包",
+        "公事包",
+        "托特包",
+        "後背包",
+        "皮夾",
+        "皮革配件"
+      ]
     };
   },
   computed: {
@@ -175,8 +132,8 @@ export default {
       });
     },
     getProduct(id) {
-      console.log(id)
-      this.$router.push(`/itempage/${id}`)
+      console.log(id);
+      this.$router.push(`/itempage/${id}`);
     },
     addtoCart(id, qty = 1) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
@@ -194,19 +151,48 @@ export default {
         } else {
           this.$bus.$emit("message:push", res.data.message, "danger");
         }
-        vm.getCart();
         vm.isLoading = false;
-        $("#productModal").modal("hide");
       });
     },
-    getCart() {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+
+    addToFavorite(item) {
       const vm = this;
       vm.isLoading = true;
-      this.$http.get(api).then(res => {
-        console.log("res", res.data);
-        vm.isLoading = false;
+
+      let index = -1;
+      vm.favPproducts.forEach(data => {
+        if (data.id == item.id) {
+          index = vm.favPproducts.indexOf(data);
+          vm.favPproducts.splice(index);
+          localStorage.setItem(
+            "favProductsStrData",
+            JSON.stringify(vm.favPproducts)
+          );
+          this.$bus.$emit("message:push", "已從我的最愛移除", "danger");
+        }
       });
+      if (index < 0) {
+        vm.favPproducts.push(item);
+        localStorage.setItem(
+          "favProductsStrData",
+          JSON.stringify(vm.favPproducts)
+        );
+        this.$bus.$emit("message:push", "已加入我的最愛", "success");
+      }
+      this.getFavList();
+      this.$bus.$emit("emitGetFav");
+      setTimeout(() => {
+        vm.isLoading = false;
+      }, 300);
+    },
+    checkFavorite(item) {
+      this.favPproducts.some(data => {
+        return data.id === item.id;
+      });
+    },
+    getFavList() {
+      this.favPproducts =
+        JSON.parse(localStorage.getItem("favProductsStrData")) || [];
     }
   },
   components: {
@@ -215,6 +201,7 @@ export default {
   },
   created() {
     this.getProducts();
+    this.getFavList();
   },
   mounted() {
     const vm = this;

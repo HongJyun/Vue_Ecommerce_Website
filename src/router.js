@@ -43,6 +43,7 @@ export default new Router({
         },
         {
           path: "itempage/:itemId",
+          name: 'itempage',
           component: ShopItemDetail
         },
         {

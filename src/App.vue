@@ -15,10 +15,10 @@ export default {
   components: {
     MainNav,
     Home,
-    Shop,
-  }
-};
+    Shop
+  },
 
+};
 </script>
 <style lang="scss">
 @import "./assets/scss/all.scss";

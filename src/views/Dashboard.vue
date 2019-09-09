@@ -13,25 +13,21 @@
   </div>
 </template>
 
-
 <script>
-import Navbar from "../components/Dashboard_Navbar";
-import Sidebar from "../components/Dashboard_Sidebar";
-import Products from "../components/Dashboard_Products";
-import Alert from "../components/AlertMessage";
+import Navbar from '../components/Dashboard_Navbar'
+import Sidebar from '../components/Dashboard_Sidebar'
+import Alert from '../components/AlertMessage'
 
 export default {
-  name: "Dashboard",
+  name: 'Dashboard',
   components: {
     Navbar,
     Sidebar,
-    Products,
     Alert
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
 @import "../assets/scss/dashboard.scss";
 </style>
-

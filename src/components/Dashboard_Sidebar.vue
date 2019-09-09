@@ -76,6 +76,6 @@
 
 <script>
 export default {
-  name: "Dashboard_Sidebar"
-};
+  name: 'Dashboard_Sidebar'
+}
 </script>

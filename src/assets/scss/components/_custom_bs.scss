@@ -1,5 +1,9 @@
+//carousel
 .carousel-inner {
-  height: 480px;
+  height: 300px;
+  @include media-breakpoint-up(md) {
+    height: 680px;
+  }
 }
 
 .carousel-item {
@@ -14,35 +18,30 @@
 }
 
 .carousel-caption {
-  bottom: 35%;
+  transform: translateY(50%);
+  bottom: 50%;
+
   > h1 {
     border-style: groove;
     padding: 1rem;
+    font-size: 1rem;
   }
+
   > h1,
   h2 {
     text-shadow: black 0.1em 0.1em 0.02em;
   }
-}
 
-.card-img {
-  transition: all 0.3s;
-}
-
-.card-img-overlay {
-  text-shadow: black 0.1em 0.1em 0.2em;
-}
-
-.card-hover:hover {
-  .card-img {
-    transform: scale(0.95);
-    box-shadow: black 1px 1px 5px;
-    border-radius: 5px
+  @include media-breakpoint-up(md) {
+    > h1 {
+      font-size: 2.5rem;
+    }
   }
 }
 
+//navbar
 .navbar-light .navbar-nav .nav-link.active {
-  color: rgba(theme-color("primary"), 0.9);
+  color: rgba(theme-color('primary'), 0.9);
 }
 
 .nav-link:hover,
@@ -52,6 +51,57 @@
 
 .nav-link:hover,
 .navbar-light .navbar-nav .nav-link:hover {
-  background: theme-color("accent");
-  color: rgba(theme-color("primary"), 0.9);
+  background: theme-color('accent');
+  color: rgba(theme-color('primary'), 0.9);
+}
+
+//dropdown
+.dropdown-menu {
+  background-color: $primary;
+  padding-bottom: 0;
+}
+
+.dropdown-menu::before {
+  @include media-breakpoint-up(md) {
+    left: 50%;
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 50px 20px 50px;
+    border-color: transparent transparent $primary transparent;
+    position: absolute;
+    top: -20px;
+    transform: translateX(-50%);
+  }
+}
+
+.dropdown-item {
+  color: white;
+  transition: all 0.3s;
+
+  &:hover,
+  &:focus {
+    color: $primary;
+    background-color: theme-color('accent');
+  }
+}
+
+//btn
+.btn {
+  transition: all 0.5s;
+  &:not(:disabled):hover {
+    background-color: theme-color('accent');
+    border-color: theme-color('accent');
+    color: $primary;
+  }
+}
+
+.itemDetail {
+  .btn {
+    width: 100%;
+    @include media-breakpoint-up(lg) {
+      width: 50%;
+    }
+  }
 }

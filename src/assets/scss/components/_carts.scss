@@ -1,10 +1,35 @@
 .cart {
-  .cart-row {
-    @include media-breakpoint-up(md) {
-      border-bottom: 1px solid theme-color("light");
-    }
+  @include media-breakpoint-up(md) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px 0;
+    border-bottom: 1px solid theme-color('light');
   }
 
+  .cart-row {
+    flex-wrap: nowrap;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cart-itemInfo {
+    margin-left: 20px;
+    @include media-breakpoint-up(md) {
+      display: flex;
+      justify-content: space-between;
+      flex: 1 1;
+      align-items: center;
+      margin-left: 0px;
+
+      > div {
+        width: 50%;
+        margin: 0 30px;
+      }
+    }
+  }
   .cart-img {
     min-height: 110px;
     min-width: 110px;
@@ -18,28 +43,71 @@
     }
   }
 
-  .cart-quantity {
-    width: 145px;
-    
-
-    .form-control {
-      height: calc(3rem);
-      text-align: center;
+  .cart-price {
+    @include media-breakpoint-down(sm) {
+      padding: 10px 15px;
+      margin: 10px 0;
+      text-align: right;
+      border-top: 1px solid theme-color('light');
+      border-bottom: 1px solid theme-color('light');
     }
+  }
+}
 
+.carts {
+  .cart-image {
+    height: 110px;
+    min-width: 110px;
+    background-position: center center;
+    background-size: cover;
+    &.cart-image-sm {
+      height: 80px;
+    }
+  }
+  .cart-control {
+    width: 145px;
+  }
+  .carts-input-group {
+    .form-control {
+      padding-top: 15px;
+      padding: 15px;
+      height: calc(1rem + 30px + 2px);
+      text-align: center;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
     .btn {
-      border: 1px solid #ced4da;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
 
-      &:hover {
-        background: theme-color("light");
+  .cart-row {
+    .price {
+      @include media-breakpoint-down(md) {
+        border-top: solid 1px $primary-200;
+        border-bottom: solid 1px $primary-200;
+      }
+    }
+    & + .cart-row {
+      @include media-breakpoint-up(md) {
+        border-top: solid 1px $primary-200;
       }
     }
   }
 
-  .cart-price {
-    @include media-breakpoint-down(sm) {
-      border-top: 1px solid theme-color("light");
-      border-bottom: 1px solid theme-color("light");
+  .cart-msg-box {
+    @include media-breakpoint-up(md) {
+      background-color: theme-color('primary');
+      color: white;
+    }
+  }
+  .cart-msg-title {
+    background-color: $primary-200;
+    color: theme-color('primary');
+    @include media-breakpoint-up(md) {
+      background-color: theme-color('primary');
+      color: white;
     }
   }
 }

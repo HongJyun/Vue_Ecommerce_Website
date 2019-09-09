@@ -17,18 +17,18 @@
 
 <script>
 export default {
-  name: "Dashboard_Navbar",
+  name: 'Dashboard_Navbar',
   methods: {
-    signout() {
-      const api = `${process.env.VUE_APP_API}/logout`;
-      const vm = this;
+    signout () {
+      const api = `${process.env.VUE_APP_API}/logout`
+      const vm = this
       this.$http.post(api).then(res => {
-        console.log(res);
+        console.log(res)
         if (res.data.success) {
-          vm.$router.push("/login");
+          vm.$router.push('/login')
         }
-      });
+      })
     }
   }
-};
+}
 </script>

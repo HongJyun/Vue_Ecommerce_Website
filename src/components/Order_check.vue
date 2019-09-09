@@ -58,38 +58,38 @@
 
 <script>
 export default {
-  name: "cart",
-  data() {
+  name: 'cart',
+  data () {
     return {
-      orderId: "",
+      orderId: '',
       order: { user: {} }
-    };
+    }
   },
   methods: {
-    getOrder() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/order/${vm.orderId}`;
-      vm.isLoading = true;
+    getOrder () {
+      const vm = this
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/order/${vm.orderId}`
+      vm.isLoading = true
       this.$http.get(api).then(res => {
-        console.log("order", res.data);
-        vm.order = res.data.order;
-        vm.isLoading = false;
-      });
+        console.log('order', res.data)
+        vm.order = res.data.order
+        vm.isLoading = false
+      })
     },
-    payOrder() {
-      const vm = this;
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/pay/${vm.orderId}`;
-      vm.isLoading = true;
+    payOrder () {
+      const vm = this
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/pay/${vm.orderId}`
+      vm.isLoading = true
       this.$http.post(api).then(res => {
-        console.log("pay", res.data);
-        vm.isLoading = false;
-      });
+        console.log('pay', res.data)
+        vm.isLoading = false
+      })
       vm.getOrder()
     }
   },
-  created() {
-    this.orderId = this.$route.params.orderId;
-    this.getOrder();
+  created () {
+    this.orderId = this.$route.params.orderId
+    this.getOrder()
   }
-};
+}
 </script>

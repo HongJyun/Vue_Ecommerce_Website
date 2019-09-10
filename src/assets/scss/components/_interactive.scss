@@ -1,14 +1,7 @@
 .ui-checked-display {
   cursor: pointer;
+  color: theme-color('accent');
   .ui-show, .ui-checkbox {
     display: none;
-  }
-  .ui-checkbox:checked {
-    & ~ .ui-show {
-      display: block;
-    }
-    & ~ .ui-hidden {
-      display: none;
-    }
   }
 }

@@ -47,22 +47,31 @@
                   <div class="item-stared-icon">
                     <label class="ui-checked-display" @click.prevent="addToFavorite(item)">
                       <input type="checkbox" class="ui-checkbox" />
-                      <i class="material-icons" v-if="checkFavorite(item)">favorite</i>
-                      <i v-else class="material-icons">favorite_border</i>
+                      <i class="material-icons" v-if="item.is_favorite">favorite</i>
+                      <i class="material-icons" v-else>favorite_border</i>
                     </label>
                   </div>
                   <div class="item-info d-flex text-center text-nowrap">
                     <h3 class="item-title col">{{ item.title }}</h3>
                   </div>
                   <div class="item-info d-flex text-center text-wrap">
-                    <span class="origin-price col">原價：{{ item.price | currency }}</span>
+                    <span
+                      v-if="item.price != item.origin_price"
+                      class="origin-price col"
+                    >{{ item.origin_price | currency }}</span>
                     <h3 class="item-price col">
-                      現時優惠
-                      <span class="text-accent font-weight-bold">{{ item.price | currency }}</span>
+                      <span
+                        v-if="item.price"
+                        class="text-accent font-weight-bold"
+                      >{{ item.price | currency }}</span>
+                      <span
+                        v-else
+                        class="text-accent font-weight-bold"
+                      >{{ item.origin_price | currency }}</span>
                     </h3>
                   </div>
                   <a
-                    @click.prevent="addtoCart(item)"
+                    @click.prevent="addtoCart(item.id)"
                     href="javascript:;"
                     class="btn-lg btn-light btn btn-block text-primary font-weight-bold"
                     :disabled="isLoading === true"
@@ -110,10 +119,17 @@ export default {
   computed: {
     filterdProducts() {
       const vm = this;
+      let newProducts = vm.products;
+      newProducts.map(product => {
+        product.is_favorite = vm.favPproducts.some(data => {
+          return data.id === product.id;
+        });
+      });
+
       if (vm.filterKeyword === "all") {
-        return vm.products;
+        return newProducts;
       } else {
-        return vm.products.filter(
+        return newProducts.filter(
           product =>
             product.category.toLowerCase() === vm.filterKeyword.toLowerCase()
         );
@@ -151,7 +167,9 @@ export default {
         } else {
           this.$bus.$emit("message:push", res.data.message, "danger");
         }
-        vm.isLoading = false;
+        setTimeout(() => {
+          vm.isLoading = false;
+        }, 300);
       });
     },
 
@@ -184,11 +202,6 @@ export default {
       setTimeout(() => {
         vm.isLoading = false;
       }, 300);
-    },
-    checkFavorite(item) {
-      this.favPproducts.some(data => {
-        return data.id === item.id;
-      });
     },
     getFavList() {
       this.favPproducts =

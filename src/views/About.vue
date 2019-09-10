@@ -5,8 +5,8 @@
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-caption">
-              <h1>LOVE x TECH x LIFE</h1>
-              <h2 class="d-none d-md-block">All the quality products you need.</h2>
+              <h1>LEATHER x LIFE x STORY</h1>
+              <h2 class="d-none d-md-block">An unique product for you.</h2>
             </div>
             <div class="carousel-item active">
               <div
@@ -63,7 +63,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-4 mt-1">
-            <router-link to="/shop/斜肩背包" class="btn btn-link text-white card-hover">
+            <router-link to="/shop/斜肩背包" class="text-white card-hover">
               <div class="card border-0 text-center text-white">
                 <img
                   src="https://images.unsplash.com/photo-1510783891783-80cda42ebfd2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80"
@@ -80,7 +80,7 @@
             </router-link>
           </div>
           <div class="col-lg-4 mt-1">
-            <router-link to="/shop/後背包" class="btn btn-link text-white card-hover">
+            <router-link to="/shop/後背包" class="text-white card-hover">
               <div class="card border-0 text-center text-white">
                 <img
                   src="https://images.unsplash.com/photo-1549943872-f7ff0b2b51be?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
@@ -97,7 +97,7 @@
             </router-link>
           </div>
           <div class="col-lg-4 mt-1">
-            <router-link to="/shop/皮革配件" class="btn btn-link text-white card-hover">
+            <router-link to="/shop/皮革配件" class="text-white card-hover">
               <div class="card border-0 text-center text-white">
                 <img
                   src="https://images.unsplash.com/photo-1504193374995-f7da76b87f13?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=676&q=80"
@@ -123,7 +123,8 @@
     <section class="bg-light location py-5">
       <div class="container text-center">
         <h1 class="my-3">實體店面</h1>
-        <iframe class="mb-3"
+        <iframe
+          class="mb-3"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57814.91903898905!2d121.49606973267963!3d25.08721889499535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abbf23ce4b3b%3A0xc82b0f87ff7df9dc!2z5p2-5bGx5paH5Ym15ZyS5Y2A!5e0!3m2!1szh-TW!2stw!4v1568020153774!5m2!1szh-TW!2stw"
           width="600"
           height="450"

@@ -58,6 +58,7 @@
 //dropdown
 .dropdown-menu {
   background-color: $primary;
+  padding-bottom: 0;
 }
 
 .dropdown-menu::before {
@@ -75,10 +76,30 @@
 
 .dropdown-item {
   color: white;
-  
+  transition: all 0.3s;
+
   &:hover,
   &:focus {
-    color: theme-color("accent");
-    background-color: $primary;
+    color: $primary;
+    background-color: theme-color("accent");
+  }
+}
+
+//btn
+.btn {
+  transition: all 0.5s;
+  &:not(:disabled):hover {
+    background-color: theme-color("accent");
+    border-color: theme-color("accent");
+    color: $primary;
+  }
+}
+
+.itemDetail {
+  .btn {
+    width: 100%;
+    @include media-breakpoint-up(lg) {
+      width: 50%;
+    }
   }
 }

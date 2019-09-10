@@ -30,7 +30,7 @@
               to="/admin/products"
             >後臺管理</router-link>
             <span class="sr-only">後臺管理</span>
-          </li> -->
+          </li>-->
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -42,14 +42,14 @@
               aria-expanded="false"
             >我的最愛</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <div v-if="favPproducts.length != 0" class="" style="min-width: 200px;">
-                <h5 class="dropdown-item text-center">我的最愛</h5>
+              <div v-if="favPproducts.length != 0" class style="min-width: 200px;">
+                <h5 class="text-white text-center">我的最愛</h5>
                 <div v-for="item in favPproducts" :key="item.id" class="w-100">
                   <router-link
                     :to="{ name: 'itempage', 
                 params: {itemId: `${ item.id }`}
                 }"
-                    class="text-center border-top pt-2 dropdown-item "
+                    class="text-center border-top pt-2 dropdown-item"
                   >{{ item.title }}</router-link>
                 </div>
               </div>
@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import { setTimeout } from "timers";
 export default {
   name: "Nav",
   data() {

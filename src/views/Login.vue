@@ -54,25 +54,25 @@
 <script>
 // @ is an alias to /src
 export default {
-  name: "Login",
-  data() {
+  name: 'Login',
+  data () {
     return {
       user: {
-        username: "",
-        password: ""
+        username: '',
+        password: ''
       }
-    };
+    }
   },
   methods: {
-    signin() {
-      const api = `${process.env.VUE_APP_API}/admin/signin`;
-      const vm = this;
+    signin () {
+      const api = `${process.env.VUE_APP_API}/admin/signin`
+      const vm = this
       this.$http.post(api, vm.user).then(res => {
         if (res.data.success) {
-          vm.$router.push("/admin/products");
+          vm.$router.push('/admin/products')
         }
-      });
+      })
     }
   }
-};
+}
 </script>

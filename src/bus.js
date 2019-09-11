@@ -1,6 +1,6 @@
-import Vue from "vue";
+import Vue from 'vue'
 
-Vue.prototype.$bus = new Vue();
+Vue.prototype.$bus = new Vue()
 // this.$bus.$emit("message:push", res.data.message, "danger");
 // 自定義名稱 'messsage:push'
 // message: 傳入參數

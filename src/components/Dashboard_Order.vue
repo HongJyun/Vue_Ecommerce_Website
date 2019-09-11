@@ -34,36 +34,35 @@
 </template>
 
 <script>
-import $ from "jquery";
-import Pagination from "./Pagination";
+import Pagination from './Pagination'
 
 export default {
-  name: "Dashboard_Order",
-  data() {
+  name: 'Dashboard_Order',
+  data () {
     return {
       orders: [],
       pagination: {},
       fullPage: true
-    };
+    }
   },
   methods: {
-    getOrders(page = 1) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/orders?page=${page}`;
-      const vm = this;
-      vm.isLoading = true;
+    getOrders (page = 1) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/orders?page=${page}`
+      const vm = this
+      vm.isLoading = true
       this.$http.get(api).then(res => {
-        console.log(res);
-        vm.orders = res.data.orders;
-        vm.isLoading = false;
-        vm.pagination = res.data.pagination;
-      });
+        console.log(res)
+        vm.orders = res.data.orders
+        vm.isLoading = false
+        vm.pagination = res.data.pagination
+      })
     }
   },
   components: {
     Pagination
   },
-  created() {
-    this.getOrders();
+  created () {
+    this.getOrders()
   }
-};
+}
 </script>

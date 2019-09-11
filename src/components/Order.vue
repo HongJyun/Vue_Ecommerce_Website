@@ -100,91 +100,91 @@
 
 <script>
 export default {
-  name: "cart",
-  data() {
+  name: 'cart',
+  data () {
     return {
       carts: [],
-      total: "",
-      finalTotal: "",
-      couponCode: "",
+      total: '',
+      finalTotal: '',
+      couponCode: '',
       form: {
         user: {
-          name: "",
-          email: "",
-          tel: "",
-          address: ""
+          name: '',
+          email: '',
+          tel: '',
+          address: ''
         },
-        message: ""
+        message: ''
       }
-    };
+    }
   },
 
   methods: {
-    getCart() {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
-      const vm = this;
-      vm.isLoading = true;
+    getCart () {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
+      const vm = this
+      vm.isLoading = true
       this.$http.get(api).then(res => {
-        console.log("nav", res.data);
-        vm.isLoading = false;
-        vm.carts = res.data.data.carts;
-        vm.total = res.data.data.total;
-        vm.finalTotal = res.data.data.final_total;
+        console.log('nav', res.data)
+        vm.isLoading = false
+        vm.carts = res.data.data.carts
+        vm.total = res.data.data.total
+        vm.finalTotal = res.data.data.final_total
         if (vm.carts[0]) {
-          vm.$set(vm.carts[0], "", res.data.data.carts[0]);
+          vm.$set(vm.carts[0], '', res.data.data.carts[0])
         }
-      });
+      })
     },
-    deleteCart(id) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${id}`;
-      const vm = this;
-      vm.isLoading = true;
+    deleteCart (id) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${id}`
+      const vm = this
+      vm.isLoading = true
       this.$http.delete(api).then(res => {
-        console.log("del", res);
-        vm.isLoading = false;
-      });
-      this.getCart();
+        console.log('del', res)
+        vm.isLoading = false
+      })
+      this.getCart()
     },
-    applyCoupon() {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`;
-      const vm = this;
-      vm.isLoading = true;
+    applyCoupon () {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`
+      const vm = this
+      vm.isLoading = true
       const coupon = {
         content: vm.couponCode
-      };
+      }
       this.$http.post(api, { data: coupon }).then(res => {
-        console.log("coupon", res);
-        vm.isLoading = false;
-      });
-      this.getCart();
+        console.log('coupon', res)
+        vm.isLoading = false
+      })
+      this.getCart()
     },
-    createOrder() {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/order`;
-      const vm = this;
-      vm.isLoading = true;
-      const order = vm.form;
+    createOrder () {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/order`
+      const vm = this
+      vm.isLoading = true
+      const order = vm.form
       this.$validator.validate().then(valid => {
         if (valid) {
           this.$http.post(api, { data: order }).then(res => {
-            console.log("create", res);
-            console.log("id", res.data.orderId);
+            console.log('create', res)
+            console.log('id', res.data.orderId)
             if (res.data.success) {
-              vm.$router.push(`/checkout/order_check/${res.data.orderId}`);
+              vm.$router.push(`/checkout/order_check/${res.data.orderId}`)
             } else {
-              console.log("id", res.data);
+              console.log('id', res.data)
             }
-          });
+          })
         } else {
-          console.log("欄位不完整");
+          console.log('欄位不完整')
         }
-      });
-      vm.isLoading = false;
+      })
+      vm.isLoading = false
 
-      this.getCart();
+      this.getCart()
     }
   },
-  created() {
-    this.getCart();
+  created () {
+    this.getCart()
   }
-};
+}
 </script>

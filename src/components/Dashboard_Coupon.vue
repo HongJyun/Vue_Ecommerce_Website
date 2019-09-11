@@ -162,12 +162,12 @@
 </template>
 
 <script>
-import $ from "jquery";
-import Pagination from "./Pagination";
+import $ from 'jquery'
+import Pagination from './Pagination'
 
 export default {
-  name: "Dashboard_Coupons",
-  data() {
+  name: 'Dashboard_Coupons',
+  data () {
     return {
       coupons: [],
       pagination: {},
@@ -178,75 +178,75 @@ export default {
       status: {
         fileUploading: false
       }
-    };
+    }
   },
   methods: {
-    getCoupons(page = 1) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupons?page=${page}`;
-      const vm = this;
-      vm.isLoading = true;
+    getCoupons (page = 1) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupons?page=${page}`
+      const vm = this
+      vm.isLoading = true
       this.$http.get(api).then(res => {
-        console.log('getCoupon',res.data);
-        vm.coupons = res.data.coupons;
-        vm.isLoading = false;
-        vm.pagination = res.data.pagination;
-      });
+        console.log('getCoupon', res.data)
+        vm.coupons = res.data.coupons
+        vm.isLoading = false
+        vm.pagination = res.data.pagination
+      })
     },
-    openModal(isNew, item) {
-      $("#productModal").modal("show");
+    openModal (isNew, item) {
+      $('#productModal').modal('show')
 
       if (isNew) {
-        this.tempCoupon = {};
-        this.isNew = true;
+        this.tempCoupon = {}
+        this.isNew = true
       } else {
-        this.tempCoupon = { ...item };
-        this.isNew = false;
+        this.tempCoupon = { ...item }
+        this.isNew = false
       }
     },
-    openDelModal(item) {
-      const vm = this;
-      $("#delCouponModal").modal("show");
-      vm.tempCoupon = { ...item };
+    openDelModal (item) {
+      const vm = this
+      $('#delCouponModal').modal('show')
+      vm.tempCoupon = { ...item }
     },
-    updateCoupon() {
-      let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/`;
-      let httpMethod = "post";
-      const vm = this;
+    updateCoupon () {
+      let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/`
+      let httpMethod = 'post'
+      const vm = this
 
       if (!vm.isNew) {
-        api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/${vm.tempCoupon.id}`;
-        httpMethod = "put";
+        api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/${vm.tempCoupon.id}`
+        httpMethod = 'put'
       }
 
       this.$http[httpMethod](api, { data: vm.tempCoupon }).then(res => {
-        console.log("update", res.data);
+        console.log('update', res.data)
         if (res.data.success) {
-          $("#productModal").modal("hide");
-          vm.getCoupons();
+          $('#productModal').modal('hide')
+          vm.getCoupons()
         } else {
-          $("#productModal").modal("hide");
-          vm.getCoupons();
-          this.$bus.$emit("message:push", res.data.message, "danger");
+          $('#productModal').modal('hide')
+          vm.getCoupons()
+          this.$bus.$emit('message:push', res.data.message, 'danger')
         }
-        vm.isLoading = false;
-      });
+        vm.isLoading = false
+      })
     },
-    deleteCoupon() {
-      const vm = this;
-      let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/${vm.tempCoupon.id}`;
-      vm.isLoading = true;
+    deleteCoupon () {
+      const vm = this
+      let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/${vm.tempCoupon.id}`
+      vm.isLoading = true
       this.$http.delete(api, { data: vm.tempCoupon }).then(res => {
-        vm.isLoading = false;
-        $("#delCouponModal").modal("hide");
-        vm.getCoupons();
-      });
+        vm.isLoading = false
+        $('#delCouponModal').modal('hide')
+        vm.getCoupons()
+      })
     }
   },
   components: {
     Pagination
   },
-  created() {
-    this.getCoupons();
+  created () {
+    this.getCoupons()
   }
-};
+}
 </script>

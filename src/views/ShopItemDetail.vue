@@ -70,75 +70,75 @@
 </template>
 
 <script>
-import Alert from "../components/AlertMessage";
+import Alert from '../components/AlertMessage'
 
 export default {
-  name: "Shop",
-  data() {
+  name: 'Shop',
+  data () {
     return {
-      id: "",
+      id: '',
       product: {},
       isLoading: false,
       fullPage: true
-    };
+    }
   },
   methods: {
-    getProduct(id) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
-      const vm = this;
-      vm.isLoading = true;
+    getProduct (id) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`
+      const vm = this
+      vm.isLoading = true
       this.$http.get(api).then(res => {
-        vm.product = res.data.product;
-        vm.product.num = 0;
-        vm.isLoading = false;
-        console.log(vm.product);
-      });
+        vm.product = res.data.product
+        vm.product.num = 0
+        vm.isLoading = false
+        console.log(vm.product)
+      })
     },
-    addtoCart(id, qty = 1) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
-      const vm = this;
+    addtoCart (id, qty = 1) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
+      const vm = this
       const cart = {
         product_id: id,
         qty
-      };
+      }
 
-      vm.isLoading = true;
+      vm.isLoading = true
       this.$http.post(api, { data: cart }).then(res => {
         console.log(res)
         if (res.data.success) {
-          this.$bus.$emit("message:push", res.data.message, "success");
-          this.$bus.$emit("updateCartQty");
+          this.$bus.$emit('message:push', res.data.message, 'success')
+          this.$bus.$emit('updateCartQty')
         } else {
-          this.$bus.$emit("message:push", res.data.message, "danger");
+          this.$bus.$emit('message:push', res.data.message, 'danger')
         }
-        vm.getCart();
-        vm.isLoading = false;
-      });
+        vm.getCart()
+        vm.isLoading = false
+      })
     },
-    getCart() {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
-      const vm = this;
-      vm.isLoading = true;
+    getCart () {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
+      const vm = this
+      vm.isLoading = true
       this.$http.get(api).then(res => {
-        console.log("res", res.data);
-        vm.isLoading = false;
-      });
+        console.log('res', res.data)
+        vm.isLoading = false
+      })
     }
   },
   components: {
     Alert
   },
-  created() {
-    const vm = this;
-    vm.id = this.$route.params.itemId;
-    this.getProduct(vm.id);
+  created () {
+    const vm = this
+    vm.id = this.$route.params.itemId
+    this.getProduct(vm.id)
   },
   watch: {
-    $route(now) {
-      const vm = this;
-      vm.id = this.$route.params.itemId;
-      this.getProduct(vm.id);
+    $route (now) {
+      const vm = this
+      vm.id = this.$route.params.itemId
+      this.getProduct(vm.id)
     }
   }
-};
+}
 </script>

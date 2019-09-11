@@ -38,7 +38,7 @@
               </li>
               <li>110 台北市信義區光復南路133號</li>
             </div>
-    
+
           </div>
           <div class="col-md-5 text-right d-none d-md-block">
           </div>
@@ -56,6 +56,6 @@
 
 <script>
 export default {
-  name: "Mainfooter"
-};
+  name: 'Mainfooter'
+}
 </script>

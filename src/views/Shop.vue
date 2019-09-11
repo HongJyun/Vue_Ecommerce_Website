@@ -40,7 +40,11 @@
                 :key="item.id"
               >
                 <div class="item-card">
-                  <a href="javascript:;" class="img-wrapper" @click="getProduct(item.id)">
+                  <a
+                    href="javascript:;"
+                    class="img-wrapper item-border border-bottom-0"
+                    @click="getProduct(item.id)"
+                  >
                     <div class="item-img" :style="{backgroundImage : `url(${item.imageUrl})`}"></div>
                   </a>
                   <div class="item-tag">{{ item.category }}</div>
@@ -80,143 +84,143 @@
 </template>
 
 <script>
-import Pagination from "../components/Pagination";
-import Alert from "../components/AlertMessage";
-import { setTimeout } from "timers";
+import Pagination from '../components/Pagination'
+import Alert from '../components/AlertMessage'
+import { setTimeout } from 'timers'
 
 export default {
-  name: "Shop",
-  data() {
+  name: 'Shop',
+  data () {
     return {
       products: [],
       favPproducts: [],
       is_favorite: false,
       pagination: {},
-      filterKeyword: "all",
+      filterKeyword: 'all',
       isLoading: false,
       fullPage: true,
       categories: [
-        "all",
-        "斜肩背包",
-        "公事包",
-        "托特包",
-        "後背包",
-        "皮夾",
-        "皮革配件"
+        'all',
+        '斜肩背包',
+        '公事包',
+        '托特包',
+        '後背包',
+        '皮夾',
+        '皮革配件'
       ]
-    };
+    }
   },
   computed: {
-    filterdProducts() {
-      const vm = this;
-      let newProducts = vm.products;
+    filterdProducts () {
+      const vm = this
+      let newProducts = vm.products
       newProducts.map(product => {
         product.is_favorite = vm.favPproducts.some(data => {
-          return data.id === product.id;
-        });
-      });
+          return data.id === product.id
+        })
+      })
 
-      if (vm.filterKeyword === "all") {
-        return newProducts;
+      if (vm.filterKeyword === 'all') {
+        return newProducts
       } else {
         return newProducts.filter(
           product =>
             product.category.toLowerCase() === vm.filterKeyword.toLowerCase()
-        );
+        )
       }
     }
   },
   methods: {
-    getProducts(page = 1) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/products?page=${page}`;
-      const vm = this;
-      vm.isLoading = true;
+    getProducts (page = 1) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/products?page=${page}`
+      const vm = this
+      vm.isLoading = true
       this.$http.get(api).then(res => {
-        vm.products = res.data.products;
-        vm.isLoading = false;
-        vm.pagination = res.data.pagination;
-      });
+        vm.products = res.data.products
+        vm.isLoading = false
+        vm.pagination = res.data.pagination
+      })
     },
-    getProduct(id) {
-      console.log(id);
-      this.$router.push(`/itempage/${id}`);
+    getProduct (id) {
+      console.log(id)
+      this.$router.push(`/itempage/${id}`)
     },
-    addtoCart(id, qty = 1) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
-      const vm = this;
+    addtoCart (id, qty = 1) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
+      const vm = this
       const cart = {
         product_id: id,
         qty
-      };
+      }
 
-      vm.isLoading = true;
+      vm.isLoading = true
       this.$http.post(api, { data: cart }).then(res => {
-        console.log(api);
+        console.log(api)
         if (res.data.success) {
-          this.$bus.$emit("message:push", res.data.message, "success");
-          this.$bus.$emit("updateCartQty");
+          this.$bus.$emit('message:push', res.data.message, 'success')
+          this.$bus.$emit('updateCartQty')
         } else {
-          this.$bus.$emit("message:push", res.data.message, "danger");
+          this.$bus.$emit('message:push', res.data.message, 'danger')
         }
         setTimeout(() => {
-          vm.isLoading = false;
-        }, 300);
-      });
+          vm.isLoading = false
+        }, 300)
+      })
     },
 
-    addToFavorite(item) {
-      const vm = this;
-      vm.isLoading = true;
+    addToFavorite (item) {
+      const vm = this
+      vm.isLoading = true
 
-      let index = -1;
+      let index = -1
       vm.favPproducts.forEach(data => {
         if (data.id === item.id) {
-          index = vm.favPproducts.indexOf(data);
-          vm.favPproducts.splice(index, 1);
+          index = vm.favPproducts.indexOf(data)
+          vm.favPproducts.splice(index, 1)
           localStorage.setItem(
-            "favProductsStrData",
+            'favProductsStrData',
             JSON.stringify(vm.favPproducts)
-          );
-          this.$bus.$emit("message:push", "已從我的最愛移除", "danger");
+          )
+          this.$bus.$emit('message:push', '已從我的最愛移除', 'danger')
         }
-      });
+      })
       if (index < 0) {
-        vm.favPproducts.push(item);
+        vm.favPproducts.push(item)
         localStorage.setItem(
-          "favProductsStrData",
+          'favProductsStrData',
           JSON.stringify(vm.favPproducts)
-        );
-        this.$bus.$emit("message:push", "已加入我的最愛", "success");
+        )
+        this.$bus.$emit('message:push', '已加入我的最愛', 'success')
       }
-      this.getFavList();
-      this.$bus.$emit("emitGetFav");
+      this.getFavList()
+      this.$bus.$emit('emitGetFav')
       setTimeout(() => {
-        vm.isLoading = false;
-      }, 300);
+        vm.isLoading = false
+      }, 300)
     },
-    getFavList() {
+    getFavList () {
       this.favPproducts =
-        JSON.parse(localStorage.getItem("favProductsStrData")) || [];
+        JSON.parse(localStorage.getItem('favProductsStrData')) || []
     }
   },
   components: {
     Pagination,
     Alert
   },
-  created() {
-    this.getProducts();
-    this.getFavList();
+  created () {
+    this.getProducts()
+    this.getFavList()
   },
-  mounted() {
-    const vm = this;
-    let category = this.$route.params.category;
-    vm.filterKeyword = category;
+  mounted () {
+    const vm = this
+    let category = this.$route.params.category
+    vm.filterKeyword = category
   },
   watch: {
-    $route(now) {
-      let category = this.$route.params.category;
-      this.filterKeyword = category;
+    $route (now) {
+      let category = this.$route.params.category
+      this.filterKeyword = category
     }
   }
-};
+}
 </script>

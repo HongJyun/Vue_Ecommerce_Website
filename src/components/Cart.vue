@@ -94,58 +94,58 @@
 
 <script>
 export default {
-  name: "cart",
-  data() {
+  name: 'cart',
+  data () {
     return {
       carts: [],
-      total: "",
-      finalTotal: "",
-      couponCode: "",
+      total: '',
+      finalTotal: '',
+      couponCode: '',
       isLoading: false,
       fullPage: true
-    };
-  },
-  methods: {
-    getCart() {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
-      const vm = this;
-      vm.isLoading = true;
-
-      this.$http.get(api).then(res => {
-        vm.isLoading = false;
-        vm.carts = res.data.data.carts;
-        vm.total = res.data.data.total;
-        vm.finalTotal = res.data.data.final_total;
-      });
-    },
-    deleteCart(id) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${id}`;
-      const vm = this;
-      vm.isLoading = true;
-      this.$http.delete(api).then(res => {
-        vm.$bus.$emit("updateCartQty");
-        vm.isLoading = false;
-        vm.getCart();
-      });
-    },
-    applyCoupon() {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`;
-      const vm = this;
-      vm.isLoading = true;
-      const coupon = {
-        code: vm.couponCode
-      };
-
-      this.$http.post(api, { data: coupon }).then(res => {
-        console.log(res.data);
-        document.querySelector(".couponRes").textContent = res.data.message;
-        this.getCart();
-        vm.isLoading = false;
-      });
     }
   },
-  created() {
-    this.getCart();
+  methods: {
+    getCart () {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
+      const vm = this
+      vm.isLoading = true
+
+      this.$http.get(api).then(res => {
+        vm.isLoading = false
+        vm.carts = res.data.data.carts
+        vm.total = res.data.data.total
+        vm.finalTotal = res.data.data.final_total
+      })
+    },
+    deleteCart (id) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${id}`
+      const vm = this
+      vm.isLoading = true
+      this.$http.delete(api).then(res => {
+        vm.$bus.$emit('updateCartQty')
+        vm.isLoading = false
+        vm.getCart()
+      })
+    },
+    applyCoupon () {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`
+      const vm = this
+      vm.isLoading = true
+      const coupon = {
+        code: vm.couponCode
+      }
+
+      this.$http.post(api, { data: coupon }).then(res => {
+        console.log(res.data)
+        document.querySelector('.couponRes').textContent = res.data.message
+        this.getCart()
+        vm.isLoading = false
+      })
+    }
+  },
+  created () {
+    this.getCart()
   }
-};
+}
 </script>

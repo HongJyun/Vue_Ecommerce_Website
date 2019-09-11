@@ -1,20 +1,20 @@
 // background
 .bg-md-primary {
   @include media-breakpoint-up(md) {
-    background: theme-color("primary") !important;
+    background: theme-color('primary') !important;
   }
 }
 
 .bg-sm-light {
   @include media-breakpoint-down(sm) {
-    background: theme-color("light") !important;
+    background: theme-color('light') !important;
   }
 }
 
 //text
 .text-md-down-primary {
   @include media-breakpoint-down(sm) {
-    color: theme-color("primary") !important;
+    color: theme-color('primary') !important;
   }
 }
 
@@ -27,4 +27,10 @@
   object-position: center center;
   width: 100%;
   height: 100%;
+}
+
+.w-md-25 {
+  @include media-breakpoint-up(md) {
+    width: 25%;
+  }
 }

@@ -53,16 +53,17 @@
     <section class="bg-light history py-6">
       <div class="container container text-center">
         <h1 class="mb-3">關於皮客幫</h1>
-        <p
-          class="history_content"
-        >皮客幫於1965 年創立，堅持所有皮革製品在當地進行製造生產。為了更加貼近使用者的日常需求，職人們將嚴謹的匠藝精神逐一投入其中，致力打造出最舒適、耐用的皮革製品。我們期望您能在生活裡愛用職人親手製作的皮革物品，相信在未來的五年、十年中，皮革製品都將會是您的最佳夥伴。</p>
+        <p class="history_content">
+          皮客幫於1965
+          年創立，堅持所有皮革製品在當地進行製造生產。為了更加貼近使用者的日常需求，職人們將嚴謹的匠藝精神逐一投入其中，致力打造出最舒適、耐用的皮革製品。我們期望您能在生活裡愛用職人親手製作的皮革物品，相信在未來的五年、十年中，皮革製品都將會是您的最佳夥伴。
+        </p>
       </div>
     </section>
 
-    <section class="categories types py-5">
+    <section class="categories types">
       <div class="container">
         <div class="row">
-          <div class="col-lg-4 mt-1">
+          <div class="col-lg-4 mt-5">
             <router-link to="/shop/斜肩背包" class="text-white card-hover">
               <div class="card border-0 text-center text-white">
                 <img
@@ -79,7 +80,7 @@
               </div>
             </router-link>
           </div>
-          <div class="col-lg-4 mt-1">
+          <div class="col-lg-4 mt-5">
             <router-link to="/shop/後背包" class="text-white card-hover">
               <div class="card border-0 text-center text-white">
                 <img
@@ -96,7 +97,7 @@
               </div>
             </router-link>
           </div>
-          <div class="col-lg-4 mt-1">
+          <div class="col-lg-4 mt-5">
             <router-link to="/shop/皮革配件" class="text-white card-hover">
               <div class="card border-0 text-center text-white">
                 <img
@@ -124,7 +125,7 @@
       <div class="container text-center">
         <h1 class="my-3">實體店面</h1>
         <iframe
-          class="mb-3"
+          class="mb-3 w-100"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57814.91903898905!2d121.49606973267963!3d25.08721889499535!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abbf23ce4b3b%3A0xc82b0f87ff7df9dc!2z5p2-5bGx5paH5Ym15ZyS5Y2A!5e0!3m2!1szh-TW!2stw!4v1568020153774!5m2!1szh-TW!2stw"
           width="600"
           height="450"

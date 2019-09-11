@@ -1,4 +1,7 @@
 .item-card {
+  h3 {
+    margin: 0;
+  }
   display: flex;
   flex-direction: column;
 
@@ -29,28 +32,29 @@
     letter-spacing: 5px;
   }
 
-  .item-info {
+  .item-border {
     border: 1px solid $primary-200;
   }
 
   .item-title,
-  .item-price {
+  .item-price,
+  .origin-price {
     padding-top: 15px;
     padding-bottom: 15px;
     font-size: $font-size-lg;
     flex-grow: 2;
+    text-align: center;
+  }
+
+  .item-price {
+    color: theme-color('accent');
+    font-weight: bold;
   }
 
   .origin-price {
-    padding-top: 15px;
-    padding-bottom: 15px;
     font-size: $font-size-sm;
     color: gray;
     text-decoration: line-through;
-  }
-
-  .item-title {
-    border-right: 1px solid $primary-200;
   }
 
   .item-stared-icon {

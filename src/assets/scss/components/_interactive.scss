@@ -1,7 +1,29 @@
 .ui-checked-display {
+  margin: 0;
   cursor: pointer;
   color: theme-color('accent');
-  .ui-show, .ui-checkbox {
+  .ui-show,
+  .ui-checkbox {
     display: none;
+  }
+}
+
+.itemDetail .btn {
+  &.fav-button {
+    width: 100px;
+    transition: all 0.3s;
+    &:hover {
+      color: theme-color('accent');
+      background-color: $primary;
+      border-color: black;
+    }
+    &:focus {
+      box-shadow: none;
+    }
+    &.isfavorite {
+      color: theme-color('accent');
+      background-color: $primary;
+      border-color: black;
+    }
   }
 }

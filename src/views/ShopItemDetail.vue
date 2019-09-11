@@ -12,7 +12,25 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <h3 class="d-lg-block">{{ product.title }}</h3>
+          <div class="d-flex justify-content-between">
+            <h3 class="d-lg-block">{{ product.title }}</h3>
+            <button
+              type="button"
+              class="btn btn-outline-accent fav-button"
+              :class="{isfavorite:checkFavorite}"
+              @click.prevent="addToFavorite(product)"
+            >
+              <div class="item-stared-icon">
+                <label class="ui-checked-display">
+                  <input type="checkbox" class="ui-checkbox" />
+                  <i class="material-icons" v-if="checkFavorite">favorite</i>
+                  <i class="material-icons" v-else>favorite_border</i>
+                </label>
+                <span v-if="checkFavorite">已收藏</span>
+                <span v-else>收藏</span>
+              </div>
+            </button>
+          </div>
           <hr />
           <div class="d-flex justify-content-between align-items-baseline">
             <div
@@ -70,75 +88,115 @@
 </template>
 
 <script>
-import Alert from '../components/AlertMessage'
+import Alert from "../components/AlertMessage";
 
 export default {
-  name: 'Shop',
-  data () {
+  name: "Shop",
+  data() {
     return {
-      id: '',
+      id: "",
       product: {},
       isLoading: false,
-      fullPage: true
+      fullPage: true,
+      favPproducts: []
+    };
+  },
+  computed: {
+    checkFavorite() {
+      const vm = this;
+      return vm.favPproducts.some(data => {
+        return data.id === vm.product.id;
+      });
     }
   },
   methods: {
-    getProduct (id) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`
-      const vm = this
-      vm.isLoading = true
+    getProduct(id) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`;
+      const vm = this;
+      vm.isLoading = true;
       this.$http.get(api).then(res => {
-        vm.product = res.data.product
-        vm.product.num = 0
-        vm.isLoading = false
-        console.log(vm.product)
-      })
+        vm.product = res.data.product;
+        vm.product.num = 0;
+        vm.isLoading = false;
+      });
     },
-    addtoCart (id, qty = 1) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
-      const vm = this
+    addtoCart(id, qty = 1) {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+      const vm = this;
       const cart = {
         product_id: id,
         qty
-      }
-
-      vm.isLoading = true
+      };
+      vm.isLoading = true;
       this.$http.post(api, { data: cart }).then(res => {
-        console.log(res)
         if (res.data.success) {
-          this.$bus.$emit('message:push', res.data.message, 'success')
-          this.$bus.$emit('updateCartQty')
+          this.$bus.$emit("message:push", res.data.message, "success");
+          this.$bus.$emit("updateCartQty");
         } else {
-          this.$bus.$emit('message:push', res.data.message, 'danger')
+          this.$bus.$emit("message:push", res.data.message, "danger");
         }
-        vm.getCart()
-        vm.isLoading = false
-      })
+        vm.getCart();
+        vm.isLoading = false;
+      });
     },
-    getCart () {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
-      const vm = this
-      vm.isLoading = true
+    getCart() {
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`;
+      const vm = this;
+      vm.isLoading = true;
       this.$http.get(api).then(res => {
-        console.log('res', res.data)
-        vm.isLoading = false
-      })
+        vm.isLoading = false;
+      });
+    },
+    addToFavorite(item) {
+      const vm = this;
+      vm.isLoading = true;
+      let index = -1;
+      vm.favPproducts.forEach(data => {
+        // console.log(data.title, item.title)
+        if (data.id === item.id) {
+          index = vm.favPproducts.indexOf(data);
+          vm.favPproducts.splice(index, 1);
+          localStorage.setItem(
+            "favProductsStrData",
+            JSON.stringify(vm.favPproducts)
+          );
+          this.$bus.$emit("message:push", "已從我的最愛移除", "danger");
+        }
+      });
+      if (index < 0) {
+        vm.favPproducts.push(item);
+        localStorage.setItem(
+          "favProductsStrData",
+          JSON.stringify(vm.favPproducts)
+        );
+        this.$bus.$emit("message:push", "已加入我的最愛", "success");
+      }
+      this.getFavList();
+      this.$bus.$emit("emitGetFav");
+      setTimeout(() => {
+        vm.isLoading = false;
+      }, 300);
+    },
+    getFavList() {
+      this.favPproducts =
+        JSON.parse(localStorage.getItem("favProductsStrData")) || [];
     }
   },
   components: {
     Alert
   },
-  created () {
-    const vm = this
-    vm.id = this.$route.params.itemId
-    this.getProduct(vm.id)
+  created() {
+    const vm = this;
+    vm.id = this.$route.params.itemId;
+    this.getProduct(vm.id);
+    this.getFavList();
   },
   watch: {
-    $route (now) {
-      const vm = this
-      vm.id = this.$route.params.itemId
-      this.getProduct(vm.id)
+    $route(now) {
+      const vm = this;
+      vm.id = this.$route.params.itemId;
+      this.getProduct(vm.id);
     }
   }
-}
+};
 </script>

@@ -41,7 +41,7 @@
 
 //navbar
 .navbar-light .navbar-nav .nav-link.active {
-  color: rgba(theme-color("primary"), 0.9);
+  color: rgba(theme-color('primary'), 0.9);
 }
 
 .nav-link:hover,
@@ -51,8 +51,8 @@
 
 .nav-link:hover,
 .navbar-light .navbar-nav .nav-link:hover {
-  background: theme-color("accent");
-  color: rgba(theme-color("primary"), 0.9);
+  background: theme-color('accent');
+  color: rgba(theme-color('primary'), 0.9);
 }
 
 //dropdown
@@ -62,16 +62,18 @@
 }
 
 .dropdown-menu::before {
-  left: 50%;
-  content: "";
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 0 50px 20px 50px;
-  border-color: transparent transparent $primary transparent;
-  position: absolute;
-  top: -20px;
-  transform: translateX(-50%);
+  @include media-breakpoint-up(md) {
+    left: 50%;
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 50px 20px 50px;
+    border-color: transparent transparent $primary transparent;
+    position: absolute;
+    top: -20px;
+    transform: translateX(-50%);
+  }
 }
 
 .dropdown-item {
@@ -81,7 +83,7 @@
   &:hover,
   &:focus {
     color: $primary;
-    background-color: theme-color("accent");
+    background-color: theme-color('accent');
   }
 }
 
@@ -89,8 +91,8 @@
 .btn {
   transition: all 0.5s;
   &:not(:disabled):hover {
-    background-color: theme-color("accent");
-    border-color: theme-color("accent");
+    background-color: theme-color('accent');
+    border-color: theme-color('accent');
     color: $primary;
   }
 }

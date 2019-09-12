@@ -12,6 +12,10 @@
   &.fav-button {
     width: 100px;
     transition: all 0.3s;
+    i,
+    span {
+      vertical-align: middle;
+    }
     &:hover {
       color: theme-color('accent');
       background-color: $primary;

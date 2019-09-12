@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <router-view />
+    <div class="vld-parent">
+      <loading :active.sync="isLoading"></loading>
+    </div>
   </div>
 </template>
 
@@ -12,12 +15,16 @@
 
 export default {
   name: 'app',
+  computed: {
+    isLoading () {
+      return this.$store.state.isLoading
+    }
+  },
   components: {
     // MainNav,
     // Home,
     // Shop
   }
-
 }
 </script>
 <style lang="scss">

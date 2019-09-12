@@ -123,10 +123,10 @@ export default {
     getCart () {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.get(api).then(res => {
         console.log('nav', res.data)
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
         vm.carts = res.data.data.carts
         vm.total = res.data.data.total
         vm.finalTotal = res.data.data.final_total
@@ -138,30 +138,30 @@ export default {
     deleteCart (id) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${id}`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.delete(api).then(res => {
         console.log('del', res)
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       })
       this.getCart()
     },
     applyCoupon () {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       const coupon = {
         content: vm.couponCode
       }
       this.$http.post(api, { data: coupon }).then(res => {
         console.log('coupon', res)
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       })
       this.getCart()
     },
     createOrder () {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/order`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       const order = vm.form
       this.$validator.validate().then(valid => {
         if (valid) {
@@ -178,7 +178,7 @@ export default {
           console.log('欄位不完整')
         }
       })
-      vm.isLoading = false
+      vm.$store.dispatch('updateLoading', false)
 
       this.getCart()
     }

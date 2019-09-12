@@ -18,7 +18,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item) in products" :key="item.id">
+        <tr v-for="(item) in $store.state.products" :key="item.id">
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
           <td class="text-right">{{ item.origin_price | currency }}</td>
@@ -212,7 +212,7 @@
         </div>
       </div>
     </div>
-    <Pagination :pages="pagination" @emitPagination="getProducts" />
+    <Pagination :pages="$store.state.pagination" @emitPagination="getProducts" />
   </div>
 </template>
 
@@ -224,8 +224,6 @@ export default {
   name: 'Dashboard_Products',
   data () {
     return {
-      products: [],
-      pagination: {},
       tempProduct: {},
       isNew: false,
       isLoading: false,
@@ -237,14 +235,7 @@ export default {
   },
   methods: {
     getProducts (page = 1) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/products?page=${page}`
-      const vm = this
-      vm.isLoading = true
-      this.$http.get(api).then(res => {
-        vm.products = res.data.products
-        vm.isLoading = false
-        vm.pagination = res.data.pagination
-      })
+      this.$store.dispatch('getProducts')
     },
     openModal (isNew, item) {
       $('#productModal').modal('show')

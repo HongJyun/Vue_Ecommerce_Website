@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="my-6">
     <section class="container px-0">
       <div class="row no-gutters d-flex justify-content-center">
         <div class="col-md-10">

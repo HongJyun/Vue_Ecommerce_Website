@@ -78,10 +78,10 @@ export default {
     getCart () {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.get(api).then(res => {
         console.log('nav', res.data)
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
         vm.cartQty = res.data.data.carts.length
       })
     },

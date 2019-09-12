@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="vld-parent">
-      <loading :active.sync="isLoading"></loading>
-    </div>
     <div class="text-right">
       <button class="btn btn-outline-primary mb-2" @click="openModal(true)">新增優惠券</button>
     </div>
@@ -184,11 +181,11 @@ export default {
     getCoupons (page = 1) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupons?page=${page}`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.get(api).then(res => {
         console.log('getCoupon', res.data)
         vm.coupons = res.data.coupons
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
         vm.pagination = res.data.pagination
       })
     },
@@ -228,15 +225,15 @@ export default {
           vm.getCoupons()
           this.$bus.$emit('message:push', res.data.message, 'danger')
         }
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       })
     },
     deleteCoupon () {
       const vm = this
       let api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/coupon/${vm.tempCoupon.id}`
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.delete(api, { data: vm.tempCoupon }).then(res => {
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
         $('#delCouponModal').modal('hide')
         vm.getCoupons()
       })

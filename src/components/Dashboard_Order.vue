@@ -1,9 +1,5 @@
 <template>
   <div>
-    <div class="vld-parent">
-      <loading :active.sync="isLoading"></loading>
-    </div>
-
     <table class="table table-striped">
       <thead>
         <tr>
@@ -49,11 +45,11 @@ export default {
     getOrders (page = 1) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/admin/orders?page=${page}`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.get(api).then(res => {
         console.log(res)
         vm.orders = res.data.orders
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
         vm.pagination = res.data.pagination
       })
     }

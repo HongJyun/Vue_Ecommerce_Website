@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="vld-parent">
-      <loading :active.sync="isLoading"></loading>
-    </div>
     <Alert />
 
     <section class="hero">
@@ -23,11 +20,9 @@
             <h2 class="bg-primary font-weight-bold h4 text-white mb-0 py-3">Categories</h2>
             <div class="list-group" id="Categories" v-for="cat in categories" :key="cat">
               <router-link
-                :to="{ name: 'shop',
-                params: {category: `${ cat }`}
-                }"
+                :to="{ name: 'shop', params: { category: `${cat}` } }"
                 class="list-group-item list-group-item-action h4 font-weight-bold"
-                :class="{'active': filterKeyword === cat}"
+                :class="{ active: filterKeyword === cat }"
               >{{ cat }}</router-link>
             </div>
           </aside>
@@ -45,7 +40,7 @@
                     class="img-wrapper item-border border-bottom-0"
                     @click="getProduct(item.id)"
                   >
-                    <div class="item-img" :style="{backgroundImage : `url(${item.imageUrl})`}"></div>
+                    <div class="item-img" :style="{ backgroundImage: `url(${item.imageUrl})` }"></div>
                   </a>
                   <div class="item-tag">{{ item.category }}</div>
                   <div class="item-stared-icon">
@@ -68,14 +63,14 @@
                     @click.prevent="addtoCart(item.id)"
                     href="javascript:;"
                     class="btn-lg btn-light btn btn-block text-primary font-weight-bold"
-                    :disabled="isLoading === true"
+                    :disabled="$store.state.isLoading === true"
                   >加入購物車</a>
                 </div>
               </div>
             </div>
 
             <!-- Pagination -->
-            <Pagination :pages="pagination" @emitPagination="getProducts" />
+            <Pagination :pages="this.$store.state.pagination" @emitPagination="getProducts" />
           </main>
         </div>
       </div>
@@ -92,12 +87,9 @@ export default {
   name: 'Shop',
   data () {
     return {
-      products: [],
       favPproducts: [],
       is_favorite: false,
-      pagination: {},
       filterKeyword: 'all',
-      isLoading: false,
       fullPage: true,
       categories: [
         'all',
@@ -113,7 +105,7 @@ export default {
   computed: {
     filterdProducts () {
       const vm = this
-      let newProducts = vm.products
+      let newProducts = vm.$store.state.products
       newProducts.map(product => {
         product.is_favorite = vm.favPproducts.some(data => {
           return data.id === product.id
@@ -131,18 +123,10 @@ export default {
     }
   },
   methods: {
-    getProducts (page = 1) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/products?page=${page}`
-      const vm = this
-      vm.isLoading = true
-      this.$http.get(api).then(res => {
-        vm.products = res.data.products
-        vm.isLoading = false
-        vm.pagination = res.data.pagination
-      })
+    getProducts () {
+      this.$store.dispatch('getProducts')
     },
     getProduct (id) {
-      console.log(id)
       this.$router.push(`/itempage/${id}`)
     },
     addtoCart (id, qty = 1) {
@@ -153,7 +137,8 @@ export default {
         qty
       }
 
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
+
       this.$http.post(api, { data: cart }).then(res => {
         console.log(api)
         if (res.data.success) {
@@ -163,14 +148,14 @@ export default {
           this.$bus.$emit('message:push', res.data.message, 'danger')
         }
         setTimeout(() => {
-          vm.isLoading = false
+          vm.$store.dispatch('updateLoading', false)
         }, 300)
       })
     },
 
     addToFavorite (item) {
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
 
       let index = -1
       vm.favPproducts.forEach(data => {
@@ -195,7 +180,7 @@ export default {
       this.getFavList()
       this.$bus.$emit('emitGetFav')
       setTimeout(() => {
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       }, 300)
     },
     getFavList () {

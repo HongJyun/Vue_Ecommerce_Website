@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'bootstrap'
@@ -9,12 +10,14 @@ import zhTW from 'vee-validate/dist/locale/zh_TW'
 import VueI18n from 'vue-i18n'
 
 import router from './router'
+import store from './store/store'
 import App from './App.vue'
 import './bus'
 import CurrencyFilter from './filters/currency'
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
+Vue.use(Vuex)
 
 Vue.component('Loading', Loading)
 Vue.filter('currency', CurrencyFilter)
@@ -39,6 +42,7 @@ Vue.use(VeeValidate, {
 new Vue({
   router,
   i18n,
+  store,
   render: h => h(App)
 }).$mount('#app')
 

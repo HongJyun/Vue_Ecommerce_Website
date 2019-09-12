@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="vld-parent">
-      <loading :active.sync="isLoading"></loading>
-    </div>
     <Alert />
     <section class="container itemDetail col-lg-8">
       <div class="row mt-5 justify-content-center">
@@ -13,7 +10,7 @@
         </div>
         <div class="col-lg-6">
           <div class="d-flex justify-content-between">
-            <h3 class="d-lg-block">{{ product.title }}</h3>
+            <h3 class="d-lg-block m-0 mr-5">{{ product.title }}</h3>
             <button
               type="button"
               class="btn btn-outline-accent fav-button"
@@ -96,7 +93,6 @@ export default {
     return {
       id: '',
       product: {},
-      isLoading: false,
       fullPage: true,
       favPproducts: []
     }
@@ -113,11 +109,11 @@ export default {
     getProduct (id) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/product/${id}`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.get(api).then(res => {
         vm.product = res.data.product
         vm.product.num = 0
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       })
     },
     addtoCart (id, qty = 1) {
@@ -127,7 +123,7 @@ export default {
         product_id: id,
         qty
       }
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.post(api, { data: cart }).then(res => {
         if (res.data.success) {
           this.$bus.$emit('message:push', res.data.message, 'success')
@@ -136,20 +132,20 @@ export default {
           this.$bus.$emit('message:push', res.data.message, 'danger')
         }
         vm.getCart()
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       })
     },
     getCart () {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.get(api).then(res => {
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       })
     },
     addToFavorite (item) {
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       let index = -1
       vm.favPproducts.forEach(data => {
         // console.log(data.title, item.title)
@@ -174,7 +170,7 @@ export default {
       this.getFavList()
       this.$bus.$emit('emitGetFav')
       setTimeout(() => {
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       }, 300)
     },
     getFavList () {

@@ -1,8 +1,5 @@
 <template>
   <section class="container">
-    <div class="vld-parent">
-      <loading :active.sync="isLoading"></loading>
-    </div>
     <h4 class="bg-light py-3 font-weight-bold text-center mb-5">您的購物車</h4>
     <div class="cart" v-for="item in carts" :key="item.id">
       <div class="cart-row">
@@ -25,6 +22,7 @@
           @click="deleteCart(item.id)"
           type="button"
           class="btn material-icons del-btn d-md-none"
+          :disabled="$store.state.isLoading === true"
         >delete_outline</button>
       </div>
       <div class="w-md-25 d-md-flex align-items-center justify-content-around">
@@ -33,6 +31,7 @@
           @click="deleteCart(item.id)"
           type="button"
           class="btn material-icons del-btn d-none d-md-block"
+          :disabled="$store.state.isLoading === true"
         >delete_outline</button>
       </div>
     </div>
@@ -101,7 +100,6 @@ export default {
       total: '',
       finalTotal: '',
       couponCode: '',
-      isLoading: false,
       fullPage: true
     }
   },
@@ -109,10 +107,10 @@ export default {
     getCart () {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
 
       this.$http.get(api).then(res => {
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
         vm.carts = res.data.data.carts
         vm.total = res.data.data.total
         vm.finalTotal = res.data.data.final_total
@@ -121,17 +119,17 @@ export default {
     deleteCart (id) {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/cart/${id}`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       this.$http.delete(api).then(res => {
         vm.$bus.$emit('updateCartQty')
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
         vm.getCart()
       })
     },
     applyCoupon () {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOM_PATH}/coupon`
       const vm = this
-      vm.isLoading = true
+      vm.$store.dispatch('updateLoading', true)
       const coupon = {
         code: vm.couponCode
       }
@@ -140,7 +138,7 @@ export default {
         console.log(res.data)
         document.querySelector('.couponRes').textContent = res.data.message
         this.getCart()
-        vm.isLoading = false
+        vm.$store.dispatch('updateLoading', false)
       })
     }
   },
